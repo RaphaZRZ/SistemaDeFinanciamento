@@ -19,14 +19,13 @@ public class InterfaceUsuario {
         }
     }
 
-    public static int obterQuantidadeDeParcelasDoFinanciamento() {
+    public static int obterPrazoDoFinanciamentoEmAnos() {
         while (true) {
-            System.out.println();
-            System.out.print("Informe em quantas parcelas deseja pagar o imóvel(mínimo 12 | máximo 420): ");
+            System.out.print("\nInforme o prazo do financiamento em anos(mínimo 1 | máximo 35): ");
             int parcelas = sc.nextInt();
             sc.nextLine();
 
-            if ((parcelas < 12) || parcelas > 420) {
+            if ((parcelas < 1) || parcelas > 35) {
                 System.out.println("Valor inválido, tente novamente.");
                 continue;
             }
@@ -36,10 +35,10 @@ public class InterfaceUsuario {
 
     public static double obterTaxaDeJuros() {
         while (true) {
-            System.out.println();
-            System.out.print("Informe a taxa de juros(mínimo 6% | máximo 12%): ");
+            System.out.print("\nInforme a taxa de juros(mínimo 6% | máximo 12%): ");
             double taxa = sc.nextDouble();
             sc.nextLine();
+
             if ((taxa < 6) || (taxa > 12)) {
                 System.out.println("Valor inválido, tente novamente.");
                 continue;
