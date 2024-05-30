@@ -22,14 +22,14 @@ public class InterfaceUsuario {
     public static int obterPrazoDoFinanciamentoEmAnos() {
         while (true) {
             System.out.print("\nInforme o prazo do financiamento em anos(mínimo 1 | máximo 35): ");
-            int parcelas = sc.nextInt();
+            int prazo = sc.nextInt();
             sc.nextLine();
 
-            if ((parcelas < 1) || parcelas > 35) {
+            if ((prazo < 1) || prazo > 35) {
                 System.out.println("Valor inválido, tente novamente.");
                 continue;
             }
-            return parcelas;
+            return prazo;
         }
     }
 

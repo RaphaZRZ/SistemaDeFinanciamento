@@ -1,22 +1,32 @@
 package main;
+
 import util.InterfaceUsuario;
-import modelo.Financiamento;
+import modelo.*;
 
 import java.util.ArrayList;
+
+/*
+Arrumar precificação
+ */
 
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Financiamento> financiamentos = new ArrayList<>();
+        var financiamentos = new ArrayList<Financiamento>();
 
-        // Instancia quatro financiamentos
-        for(int i = 0; i < 4; i++) {
-            double valorImovel = InterfaceUsuario.obterValorImovel();
-            int valorParcela = InterfaceUsuario.obterPrazoDoFinanciamentoEmAnos();
-            double valorTaxa = InterfaceUsuario.obterTaxaDeJuros();
-            Financiamento financiamento = new Financiamento(valorImovel, valorParcela, valorTaxa);
-            financiamentos.add(financiamento);
-        }
+        // Pede apenas uma vez asinformação para facilitar os testes
+        double valorImovel = InterfaceUsuario.obterValorImovel();
+        int prazoDoFinanciomentoEmAnos = InterfaceUsuario.obterPrazoDoFinanciamentoEmAnos();
+        double valorTaxa = InterfaceUsuario.obterTaxaDeJuros();
+
+        // Cria financiamentos de diferentes imóveis
+        financiamentos.add(new Casa(valorImovel, prazoDoFinanciomentoEmAnos, valorTaxa));
+        financiamentos.add(new Casa(200000, 30, 10));
+
+        financiamentos.add(new Apartamento(valorImovel, prazoDoFinanciomentoEmAnos, valorTaxa));
+        financiamentos.add(new Apartamento(200000, 30, 10));
+
+        financiamentos.add(new Terreno(valorImovel, prazoDoFinanciomentoEmAnos, valorTaxa));
 
         double valorTotalDosImoveis = 0;
         double valorTotalDosFinanciamentos = 0;
