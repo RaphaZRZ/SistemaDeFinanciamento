@@ -7,8 +7,6 @@ public class Terreno extends Financiamento{
 
     @Override
     public double calcularPagamentoMensal() {
-        // Acréscima de 2% em cada parcela com juros já inclusos
-        // ARRUMAR     ///     ARRUMAR     ///     ARRUMAR     ///     ARRUMAR     ///
-        return super.calcularPagamentoMensal() + (calcularPagamentoMensal() * 2 / 100);
+        return super.calcularPagamentoMensal() * 1.02;
     }
 }

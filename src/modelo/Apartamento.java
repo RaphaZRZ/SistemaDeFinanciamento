@@ -8,8 +8,8 @@ public class Apartamento extends Financiamento{
     @Override
     public double calcularPagamentoMensal() {
         // Financiamento com sistema de amortização chamado PRICE.
-        double taxaJurosMensal = this.taxaJurosAnual / 12;
-        int prazoFinanciamentoEmMeses = this.prazoFinanciamentoEmAnos * 12;
-        return (this.valorImovel * Math.pow(1 + taxaJurosMensal, prazoFinanciamentoEmMeses))/Math.pow(1 + taxaJurosMensal, prazoFinanciamentoEmMeses - 1);
+        // PARA ARRUMAR O CÁLCULO
+        return (this.valorImovel * Math.pow(1 + this.taxaJurosMensal, this.prazoFinanciamentoEmMeses)) /
+                (Math.pow(1 + this.taxaJurosMensal, this.prazoFinanciamentoEmMeses - 1));
     }
 }

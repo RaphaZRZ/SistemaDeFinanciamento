@@ -22,28 +22,28 @@ public class InterfaceUsuario {
     public static int obterPrazoDoFinanciamentoEmAnos() {
         while (true) {
             System.out.print("\nInforme o prazo do financiamento em anos(mínimo 1 | máximo 35): ");
-            int prazo = sc.nextInt();
+            int prazoEmAnos = sc.nextInt();
             sc.nextLine();
 
-            if ((prazo < 1) || prazo > 35) {
+            if ((prazoEmAnos < 1) || prazoEmAnos > 35) {
                 System.out.println("Valor inválido, tente novamente.");
                 continue;
             }
-            return prazo;
+            return prazoEmAnos;
         }
     }
 
-    public static double obterTaxaDeJuros() {
+    public static double obterTaxaDeJurosAnual() {
         while (true) {
-            System.out.print("\nInforme a taxa de juros(mínimo 6% | máximo 12%): ");
-            double taxa = sc.nextDouble();
+            System.out.print("\nInforme a taxa de juros anual(mínimo 6% | máximo 12%): ");
+            double taxaDeJurosAnual = sc.nextDouble();
             sc.nextLine();
 
-            if ((taxa < 6) || (taxa > 12)) {
+            if ((taxaDeJurosAnual < 6) || (taxaDeJurosAnual > 12)) {
                 System.out.println("Valor inválido, tente novamente.");
                 continue;
             }
-            return taxa;
+            return taxaDeJurosAnual / 100;
         }
     }
 }

@@ -3,12 +3,16 @@ package modelo;
 public class Financiamento {
     protected double valorImovel;
     protected int prazoFinanciamentoEmAnos;
+    protected int prazoFinanciamentoEmMeses;
     protected double taxaJurosAnual;
+    protected double taxaJurosMensal;
 
     public Financiamento(double valorImovel, int prazoFinanciamentoEmAnos, double taxaJurosAnual) {
         this.valorImovel = valorImovel;
         this.prazoFinanciamentoEmAnos = prazoFinanciamentoEmAnos;
         this.taxaJurosAnual = taxaJurosAnual;
+        this.prazoFinanciamentoEmMeses = this.prazoFinanciamentoEmAnos * 12;
+        this.taxaJurosMensal = taxaJurosAnual / 12;
     }
 
     // getters
@@ -16,7 +20,7 @@ public class Financiamento {
         return valorImovel;
     }
 
-    public int getPrazoFinanciamento() {
+    public int getPrazoFinanciamentoEmAnos() {
         return prazoFinanciamentoEmAnos;
     }
 
@@ -29,8 +33,8 @@ public class Financiamento {
         this.valorImovel = valorImovel;
     }
 
-    public void setPrazoFinanciamento(int prazoFinanciamento) {
-        this.prazoFinanciamentoEmAnos = prazoFinanciamento;
+    public void setPrazoFinanciamentoEmAnos(int prazoFinanciamentoEmAnos) {
+        this.prazoFinanciamentoEmAnos = prazoFinanciamentoEmAnos;
     }
 
     public void setTaxaJurosAnual(double taxaJurosAnual) {
@@ -39,16 +43,16 @@ public class Financiamento {
 
     // métodos
     public double calcularPagamentoMensal() {
-        return (this.valorImovel / (this.prazoFinanciamentoEmAnos * 12)) * (1 + (this.taxaJurosAnual / 12));
+        return (this.valorImovel / this.prazoFinanciamentoEmMeses) * (1 + this.taxaJurosMensal);
     }
 
-    public double calcularPagamentoFinanciamento() {
-        return this.calcularPagamentoMensal() * this.prazoFinanciamentoEmAnos * 12;
+    public double calcularPagamentoDoFinanciamento() {
+        return this.calcularPagamentoMensal() * (this.prazoFinanciamentoEmMeses);
     }
 
     public void mostrarInformacoes() {
         System.out.printf("\nValor do imóvel: R$%.2f\nValor do financiamento: R$%.2f\nCusto de cada parcela: R$%.2f\n",
-                getValorImovel(), calcularPagamentoFinanciamento(), calcularPagamentoMensal());
+                getValorImovel(), calcularPagamentoDoFinanciamento(), calcularPagamentoMensal());
     }
 
 }
