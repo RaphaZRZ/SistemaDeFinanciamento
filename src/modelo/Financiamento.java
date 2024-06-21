@@ -1,6 +1,7 @@
 package modelo;
 
-public class Financiamento {
+
+public abstract class Financiamento {
     protected double valorImovel;
     protected int prazoFinanciamentoEmAnos;
     protected int prazoFinanciamentoEmMeses;
@@ -12,7 +13,7 @@ public class Financiamento {
         this.prazoFinanciamentoEmAnos = prazoFinanciamentoEmAnos;
         this.taxaJurosAnual = taxaJurosAnual;
         this.prazoFinanciamentoEmMeses = this.prazoFinanciamentoEmAnos * 12;
-        this.taxaJurosMensal = taxaJurosAnual / 12;
+        this.taxaJurosMensal = this.taxaJurosAnual / 12;
     }
 
     // getters
@@ -42,9 +43,7 @@ public class Financiamento {
     }
 
     // métodos
-    public double calcularPagamentoMensal() {
-        return (this.valorImovel / this.prazoFinanciamentoEmMeses) * (1 + this.taxaJurosMensal);
-    }
+    public abstract double calcularPagamentoMensal();
 
     public double calcularPagamentoDoFinanciamento() {
         return this.calcularPagamentoMensal() * (this.prazoFinanciamentoEmMeses);
