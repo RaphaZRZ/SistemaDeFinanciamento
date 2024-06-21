@@ -5,7 +5,7 @@
 package main;
 
 import util.InterfaceUsuario;
-imp ort modelo.*;
+import modelo.*;
 
 import java.util.ArrayList;
 
