@@ -1,4 +1,7 @@
 package util;
+
+import Exceptions.ValorInvalidoException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -8,126 +11,195 @@ public class InterfaceUsuario {
     // Financiamento
     public static String obterTipoFinanciamento() {
         while (true) {
-            System.out.print("\n1 - Casa\n2 - Apartamento\n3 - Terreno\n\nInforme o que deseja financiar: ");
-            int escolha = sc.nextInt();
-            sc.nextLine();
+            try {
+                System.out.print("\n1 - Casa\n2 - Apartamento\n3 - Terreno\n\nInforme o que deseja financiar: ");
+                int escolha = sc.nextInt();
+                sc.nextLine();
 
-            if (escolha == 1)
-                return "Casa";
-            if (escolha == 2)
-                return "Apartamento";
-            if (escolha == 3)
-                return "Terreno";
+                if (escolha == 1)
+                    return "Casa";
+                if (escolha == 2)
+                    return "Apartamento";
+                if (escolha == 3)
+                    return "Terreno";
 
-            System.out.println("Opção inválida");
+                System.out.println("Opção inexistente");
+
+            } catch (InputMismatchException e) {
+                System.out.println("Valor inválido. Por favor, insira um número inteiro.");
+                sc.nextLine();
+            }
         }
     }
 
-    public static double obterValorImovel() {
+    public static double obterValorImovel(){
         while (true) {
-            System.out.print("\nInforme o valor do imóvel(mínimo R$50.000): ");
-            double preco = sc.nextDouble();
-            sc.nextLine();
+            try {
+                System.out.print("\nInforme o valor do imóvel(mínimo R$50.000): ");
+                double preco = sc.nextDouble();
+                sc.nextLine();
 
-            if (preco < 50000) {
-                System.out.println("Valor inválido, tente novamente.");
-                continue;
+                if (preco < 50000)
+                    throw new ValorInvalidoException("O valor informado está fora dos limites permitidos.");
+
+                return preco;
+
+            } catch (InputMismatchException e) {
+                System.out.println("Valor inválido. Por favor, insira um número.");
+                sc.nextLine();
+            } catch (ValorInvalidoException e) {
+                System.out.println(e.getMessage());
             }
-            return preco;
         }
     }
 
     public static int obterPrazoDoFinanciamentoEmAnos() {
         while (true) {
-            System.out.print("\nInforme o prazo do financiamento em anos(mínimo 1 | máximo 35): ");
-            int prazoEmAnos = sc.nextInt();
-            sc.nextLine();
+            try {
+                System.out.print("\nInforme o prazo do financiamento em anos(mínimo 1 | máximo 35): ");
+                int prazoEmAnos = sc.nextInt();
+                sc.nextLine();
 
-            if ((prazoEmAnos < 1) || prazoEmAnos > 35) {
-                System.out.println("Valor inválido, tente novamente.");
-                continue;
+                if ((prazoEmAnos < 1) || prazoEmAnos > 35)
+                    throw new ValorInvalidoException("O valor informado está fora dos limites permitidos.");
+
+                return prazoEmAnos;
+
+            } catch (InputMismatchException e) {
+                System.out.println("Valor inválido. Por favor, insira um número inteiro.");
+                sc.nextLine();
+            } catch (ValorInvalidoException e) {
+                System.out.println(e.getMessage());
             }
-            return prazoEmAnos;
         }
     }
 
     public static double obterTaxaDeJurosAnual() {
         while (true) {
-            System.out.print("\nInforme a taxa de juros anual(mínimo 6% | máximo 12%): ");
-            double taxaDeJurosAnual = sc.nextDouble();
-            sc.nextLine();
+            try {
+                System.out.print("\nInforme a taxa de juros anual(mínimo 6% | máximo 12%): ");
+                double taxaDeJurosAnual = sc.nextDouble();
+                sc.nextLine();
 
-            if ((taxaDeJurosAnual < 6) || (taxaDeJurosAnual > 12)) {
-                System.out.println("Valor inválido, tente novamente.");
-                continue;
+                if ((taxaDeJurosAnual < 6) || (taxaDeJurosAnual > 12))
+                    throw new ValorInvalidoException("O valor informado está fora dos limites permitidos.");
+
+                return taxaDeJurosAnual / 100;
+
+            } catch (InputMismatchException e) {
+                System.out.println("Valor inválido. Por favor, insira um número.");
+                sc.nextLine();
+            } catch (ValorInvalidoException e) {
+                System.out.println(e.getMessage());
             }
-            return taxaDeJurosAnual / 100;
         }
     }
 
     // Casa
-    public static double obterAreaConstruida(double areaTerreno) {
+    public static double obterAreaTerreno() {
         while (true) {
-            System.out.print("\nInforme em metros quadrados a área da casa: ");
-            double areaConstruida = sc.nextDouble();
-            sc.nextLine();
+            try {
+                System.out.print("\nInforme em metros quadrados a área do terreno(mínimo 2,5 metros): ");
+                double areaTerreno = sc.nextDouble();
+                sc.nextLine();
 
-            if (areaConstruida > areaTerreno) {
-                System.out.println("A área construída não pode ser maior que a área do terreno.");
-                continue;
+                if (areaTerreno < 2.5)
+                    throw new ValorInvalidoException("O valor informado está fora dos limites permitidos.");
+
+                return areaTerreno;
+
+            } catch (InputMismatchException e) {
+                System.out.println("Valor inválido. Por favor, insira um número.");
+                sc.nextLine();
+            } catch (ValorInvalidoException e) {
+                System.out.println(e.getMessage());
             }
-
-            if (areaConstruida < 2.5) {
-                System.out.println("A área construída não pode ser inferior a 2,5 metros quadrados.");
-                continue;
-            }
-
-            return areaConstruida;
         }
     }
 
-    public static double obterAreaTerreno() {
+    public static double obterAreaConstruida(double areaTerreno) {
         while (true) {
-            System.out.print("\nInforme em metros quadrados a área do terreno: ");
-            double areaTerreno = sc.nextDouble();
-            sc.nextLine();
+            try {
+                System.out.print("\nInforme em metros quadrados a área da casa: ");
+                double areaConstruida = sc.nextDouble();
+                sc.nextLine();
 
-            if (areaTerreno < 2.5) {
-                System.out.println("A área do terreno não pode ser inferior a 2,5 metros quadrados.");
-                continue;
+                if (areaConstruida > areaTerreno)
+                    throw new ValorInvalidoException("Valor inválido. A área construída não pode ser maior que a área do terreno.");
+
+                return areaConstruida;
+
+            } catch (InputMismatchException e) {
+                System.out.println("Valor inválido. Por favor, insira um número.");
+                sc.nextLine();
+            } catch (ValorInvalidoException e) {
+                System.out.println(e.getMessage());
             }
-            return areaTerreno;
         }
     }
 
     // Apartamento
     public static int obterQuantidadeDeAndaresDoApartamento() {
-        System.out.print("\nInforme a quantidade de andares do apartamento: ");
-        int quantidadeDeAndaresDoApartamento = sc.nextInt();
-        sc.nextLine();
-        return quantidadeDeAndaresDoApartamento;
+        while (true) {
+            try {
+                System.out.print("\nInforme a quantidade de andares do apartamento(mínimo 4): ");
+                int quantidadeDeAndaresDoApartamento = sc.nextInt();
+                sc.nextLine();
+
+                if (quantidadeDeAndaresDoApartamento < 4)
+                    throw new ValorInvalidoException("O valor informado está fora dos limites permitidos.");
+
+                return quantidadeDeAndaresDoApartamento;
+
+            } catch (InputMismatchException e) {
+                System.out.println("Valor inválido. Por favor, insira um número inteiro.");
+                sc.nextLine();
+            } catch (ValorInvalidoException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public static int obterQuantidadeDeVagasNoEstacionamento() {
-        System.out.print("\nInforme a quantidade de vagas do apartamento: ");
-        int quantidadeDeVagasNoApartamento = sc.nextInt();
-        sc.nextLine();
-        return quantidadeDeVagasNoApartamento;
+        while (true) {
+            try {
+                System.out.print("\nInforme a quantidade de vagas do apartamento(mínimo 4): ");
+                int quantidadeDeVagasNoApartamento = sc.nextInt();
+                sc.nextLine();
+
+                if (quantidadeDeVagasNoApartamento < 4)
+                    throw new ValorInvalidoException("O valor informado está fora dos limites permitidos.");
+
+                return quantidadeDeVagasNoApartamento;
+
+            } catch (InputMismatchException e) {
+                System.out.println("Valor inválido. Por favor, insira um número inteiro.");
+                sc.nextLine();
+            } catch (ValorInvalidoException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     // Terreno
     public static String obterTipoDeZona() {
         while (true) {
-            System.out.print("\n1 - Residencial\n2 - Comercial\n\nInforme o tipo de zona do terreno: ");
-            int tipoDeZona = sc.nextInt();
-            sc.nextLine();
+            try {
+                System.out.print("\n1 - Residencial\n2 - Comercial\n\nInforme o tipo de zona do terreno: ");
+                int tipoDeZona = sc.nextInt();
+                sc.nextLine();
 
-            if (tipoDeZona == 1)
-                return "Residencial";
-            if (tipoDeZona == 2)
-                return "Comercial";
+                if (tipoDeZona == 1)
+                    return "Residencial";
+                if (tipoDeZona == 2)
+                    return "Comercial";
 
-            System.out.println("Opção inválida");
+                System.out.println("Opção inválida");
+
+            } catch (InputMismatchException e) {
+                System.out.println("Valor inválido. Por favor, insira um número inteiro.");
+                sc.nextLine();
+            }
         }
     }
 }

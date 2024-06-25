@@ -1,5 +1,6 @@
 package modelo;
 
+import Exceptions.AcrescimoMaiorQueJurosException;
 
 public class Casa extends Financiamento{
     private double areaTerreno;
@@ -11,9 +12,21 @@ public class Casa extends Financiamento{
         this.areaConstruida = areaConstruida;
     }
 
-    // Acréscima de R$80,00 em cada parcela
+    // Acréscimo de no máximo R$80,00 em cada parcela, porém o acréscimo não pode ser superior aos juros da parcela.
     public double calcularPagamentoMensal() {
-        return ((this.valorImovel / this.prazoFinanciamentoEmMeses) * (1 + this.taxaJurosMensal)) + 80;
+        // Cálculo do pagamento mensal com juros porém sem o acréscimo.
+        double mensalidadeComJuros = ((this.valorImovel / this.prazoFinanciamentoEmMeses) * (1 + this.taxaJurosMensal));
+        double diferencaEntreMensalidadeComJurosSemJuros = mensalidadeComJuros - calcularPagamentoMensalSemJuros();
+
+        try {
+            if (diferencaEntreMensalidadeComJurosSemJuros < 80)
+                throw new AcrescimoMaiorQueJurosException("O acréscimo não pode ser superior ao valor dos juros.");
+
+            return mensalidadeComJuros + 80;
+
+        } catch (AcrescimoMaiorQueJurosException e) {
+            return ((this.valorImovel / this.prazoFinanciamentoEmMeses) * (1 + this.taxaJurosMensal)) + diferencaEntreMensalidadeComJurosSemJuros;
+        }
     }
 
     public void mostrarInformacoes() {

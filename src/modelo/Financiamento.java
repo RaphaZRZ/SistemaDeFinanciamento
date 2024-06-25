@@ -43,6 +43,10 @@ public abstract class Financiamento {
     }
 
     // métodos
+    public double calcularPagamentoMensalSemJuros() {
+        return (this.valorImovel / this.prazoFinanciamentoEmMeses);
+    }
+
     public abstract double calcularPagamentoMensal();
 
     public double calcularPagamentoDoFinanciamento() {
