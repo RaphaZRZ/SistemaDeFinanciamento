@@ -1,6 +1,7 @@
 # SistemaDeFinanciamento
  Financiamento de imóveis para um banco. Demonstra conceitos de Programação Orientada a Objetos em Java
 
+*08/07/2024:* Persistência de dados com file reader/writer e objectStream in/out.
 *25/06/2024:* Implementação de tratamentos de exceções com try/catch.
               Implementação de exceções personalizadas.
 *20/06/2024:* Implementação de novos atributos nas classes herdadas da classe Financiamento.

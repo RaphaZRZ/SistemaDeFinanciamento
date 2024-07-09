@@ -18,4 +18,11 @@ public class Terreno extends Financiamento{
         super.mostrarInformacoes();
         System.out.printf("Tipo de zona: %s\n", this.tipoDeZona);
     }
+
+    public String toString() {
+        return "Valor do imóvel: " + this.getValorImovel() + "\n" +
+                "Valor do financiamento: " + this.calcularPagamentoDoFinanciamento() + "\n" +
+                "Custo de cada parcela: " + this.calcularPagamentoMensal() + "\n" +
+                "Tipo de zona: " + this.tipoDeZona + "\n\n";
+    }
 }

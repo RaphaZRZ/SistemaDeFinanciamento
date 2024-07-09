@@ -1,7 +1,9 @@
 package modelo;
 
+import java.io.Serializable;
 
-public abstract class Financiamento {
+
+public abstract class Financiamento implements Serializable {
     protected double valorImovel;
     protected int prazoFinanciamentoEmAnos;
     protected int prazoFinanciamentoEmMeses;
@@ -57,5 +59,7 @@ public abstract class Financiamento {
         System.out.printf("\nValor do imóvel: R$%.2f\nValor do financiamento: R$%.2f\nCusto de cada parcela: R$%.2f\n",
                 getValorImovel(), calcularPagamentoDoFinanciamento(), calcularPagamentoMensal());
     }
+
+    public abstract String toString();
 
 }

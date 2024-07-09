@@ -2,6 +2,7 @@ package modelo;
 
 import Exceptions.AcrescimoMaiorQueJurosException;
 
+
 public class Casa extends Financiamento{
     private double areaTerreno;
     private double areaConstruida;
@@ -33,5 +34,13 @@ public class Casa extends Financiamento{
         super.mostrarInformacoes();
         System.out.printf("Área construída: %.2f metros quadrados\nÁrea do Terreno: %.2f metros quadrados\n",
                 this.areaConstruida, this.areaTerreno);
+    }
+
+    public String toString() {
+        return "Valor do imóvel: " + this.getValorImovel() + "\n" +
+                "Valor do financiamento: " + this.calcularPagamentoDoFinanciamento() + "\n" +
+                "Custo de cada parcela: " + this.calcularPagamentoMensal() + "\n" +
+                "Área construída: " + this.areaConstruida + " metros quadrados\n" +
+                "Área do Terreno: " + this.areaTerreno + " metros quadrados\n\n";
     }
 }
