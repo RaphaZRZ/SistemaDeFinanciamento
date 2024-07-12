@@ -9,17 +9,51 @@ public class Painel extends JFrame {
     //adicionando caixa de texto fora do construtor para utilizar a variável em outros métodos
     JTextField num1;
     JTextField num2;
-    private JPanel panelMain;
-    private JButton Soma;
 
     public Painel() {
+        // JFrame
         setTitle("Financiamentos");
-        setSize(800, 600);
-        getContentPane().setBackground(new Color(168, 234, 250));
+        setSize(700, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
         setLayout(null);
+
+        // JPanel Titulo
+        JPanel panelTitulo = new JPanel();
+        panelTitulo.setBounds(0, 0, 800, 100);
+        panelTitulo.setBackground(new Color(168, 234, 250));
+        panelTitulo.setLayout(null);
+        add(panelTitulo);
+
+        // JPanel InformacoesDoFinanciamento
+        JPanel panelInformacoesDoFinanciamento = new JPanel();
+        panelInformacoesDoFinanciamento.setBounds(0, 100, 300, 500);
+        panelInformacoesDoFinanciamento.setBackground(new Color(127, 127, 127));
+        panelInformacoesDoFinanciamento.setLayout(null);
+        add(panelInformacoesDoFinanciamento);
+
+        // radioButtons Informação do tipo de financiamento
+        JRadioButton apartamentoButton = new JRadioButton("Apartamento");
+        JRadioButton casaButton = new JRadioButton("Casa");
+        JRadioButton terrenoButton = new JRadioButton("Terreno");
+
+        apartamentoButton.setBounds(0, 80, 100, 25);
+        apartamentoButton.setOpaque(false);
+        casaButton.setBounds(0, 110, 100, 25);
+        casaButton.setOpaque(false);
+        terrenoButton.setBounds(0, 140, 100, 25);
+        terrenoButton.setOpaque(false);
+
+        panelInformacoesDoFinanciamento.add(apartamentoButton);
+        panelInformacoesDoFinanciamento.add(casaButton);
+        panelInformacoesDoFinanciamento.add(terrenoButton);
+
+        // redioButtonsGroup Informações do tipo de financiamento
+        ButtonGroup grupoTipoDeFinanciamentos = new ButtonGroup();
+        grupoTipoDeFinanciamentos.add(apartamentoButton);
+        grupoTipoDeFinanciamentos.add(casaButton);
+        grupoTipoDeFinanciamentos.add(terrenoButton);
 
         // botão 1
         JButton buttonSoma = new JButton("SOMA");
@@ -30,44 +64,19 @@ public class Painel extends JFrame {
         buttonSoma.addActionListener(this::botao1);
         add(buttonSoma);
 
-        // botão 2
-        JButton jbuttonSubtracao = new JButton("SUBTRAÇÃO");
-        jbuttonSubtracao.setBounds(0, 0, 200, 50);
-        jbuttonSubtracao.setFont(new Font("Arial", Font.BOLD, 20));
-        jbuttonSubtracao.setForeground(new Color(1, 106, 234));
-        jbuttonSubtracao.setBackground(new Color(50, 50, 50));
-        jbuttonSubtracao.addActionListener(this::botao2);
-        add(jbuttonSubtracao);
-
-        // Campo de texto
-        num1 = new JTextField();
-        num1.setBounds(130, 112, 100, 30);
-        num1.setFont(new Font("Arial", Font.ITALIC, 20));
-        add(num1);
-
-        // Campo de texto2
-        num2 = new JTextField();
-        num2.setBounds(130, 187, 100, 30);
-        num2.setFont(new Font("Arial", Font.ITALIC, 20));
-        add(num2);
-
         // JLabel Título
-        JLabel title = new JLabel("TÍTULO");
-        title.setBounds(this.getX() / 2 + 75, 10, 400, 100);
-        title.setFont(new Font("Arial", Font.BOLD, 25));
-        add(title);
+        JLabel title = new JLabel("SISTEMA DE FINANCIAMENTOS");
+        title.setBounds(30, 25, 610, 50);
+        title.setFont(new Font("Arial", Font.BOLD, 40));
+        panelTitulo.add(title);
 
-        // JLabel texto1
-        JLabel jLabel1 = new JLabel("1° número:  ");
-        jLabel1.setBounds(0, 75, 400, 100);
-        jLabel1.setFont(new Font("Arial", Font.BOLD, 25));
-        add(jLabel1);
+        // JLabel Selecionar tipo de financiamento
+        JLabel selecionarTipoDeFinanciamento = new JLabel("Escolha o imóvel que deseja financiar");
+        selecionarTipoDeFinanciamento.setBounds(0, 0, 400, 100);
+        selecionarTipoDeFinanciamento.setFont(new Font("Arial", Font.BOLD, 25));
+        selecionarTipoDeFinanciamento.setForeground(new Color(225, 225, 225));
+        panelInformacoesDoFinanciamento.add(selecionarTipoDeFinanciamento);
 
-        // JLabel texto2
-        JLabel jLabel2 = new JLabel("2° número:  ");
-        jLabel2.setBounds(0, 150, 400, 100);
-        jLabel2.setFont(new Font("Arial", Font.BOLD, 25));
-        add(jLabel2);
 
         setVisible(true);
     }
@@ -86,22 +95,5 @@ public class Painel extends JFrame {
             JOptionPane.showMessageDialog(null, "Por favor, insira dois números inteiros",
                     "ERRO: Valor inválido", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    private void botao2(ActionEvent actionEvent) {
-        try {
-            Integer numero1 = Integer.parseInt(num1.getText());
-            Integer numero2 = Integer.parseInt(num2.getText());
-            int subtracao = numero1 - numero2;
-
-            JOptionPane.showMessageDialog(null,
-                    "A subtração dos dois valores é: " + subtracao, "Subtração de dois valores", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Por favor, insira dois números inteiros",
-                    "ERRO: Valor inválido", JOptionPane.ERROR_MESSAGE);
-        }
-
-
     }
 }

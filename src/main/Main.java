@@ -1,15 +1,14 @@
 package main;
-/*
-LER CADA OBJETO E ADICIONAR NO ARRAY FINANCIAMENTOS
 
 import Painel.Painel;
-    public class Main {
-        public static void main(String[] args) {
-            new Painel();
-        }
-    }
-*/
 
+public class Main {
+    public static void main(String[] args) {
+        new Painel();
+    }
+}
+
+/*
 import util.InterfaceUsuario;
 import modelo.*;
 
@@ -142,3 +141,5 @@ public class Main {
 
     }
 }
+*/
+
