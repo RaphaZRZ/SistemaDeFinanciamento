@@ -1,9 +1,14 @@
 /*
-Implementar regras de negócio utilizadas na InterfaceUsuário para criar financiamentos
+Instanciar financiamentos
 Salvar/Listar/Excluir financiamentos
  */
 
 package Painel;
+
+import Exceptions.JurosFinanciamentoInvalidoException;
+import Exceptions.PrazoFinanciamentoInvalidoException;
+import Exceptions.ValorImovelInvalidoException;
+import util.InterfaceUsuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,19 +20,19 @@ public class Painel extends JFrame {
     JRadioButton apartamentoButton;
     JRadioButton casaButton;
     JRadioButton terrenoButton;
-    JTextField valor;
-    JTextField prazo;
-    JTextField jurosAnual;
-    JLabel quantidadeDeAndares;
-    JLabel quantidadeDeVagasDoEstacionamento;
-    JLabel areaTerreno;
-    JLabel areaConstruida;
-    JLabel tipoDeZona;
-    JTextField andares;
-    JTextField vagas;
-    JTextField terreno;
-    JTextField construida;
-    JTextField zona;
+    JTextField jTextFieldValorImovel;
+    JTextField jTextFieldPrazo;
+    JTextField jTextFieldJurosAnual;
+    JLabel jLabelQuantidadeDeAndares;
+    JLabel jLabelQuantidadeDeVagasDoEstacionamento;
+    JLabel jLabelAreaTerreno;
+    JLabel jLabelAreaConstruida;
+    JLabel jLabelTipoDeZona;
+    JTextField jTextFieldAndares;
+    JTextField jTextFieldVagas;
+    JTextField jTextFieldTerreno;
+    JTextField jTextFieldConstruida;
+    JTextField jTextFieldZona;
     JButton salvarInformacoes;
 
     public Painel() {
@@ -121,94 +126,94 @@ public class Painel extends JFrame {
 
 
         // JLabel Informações específicas de cada imóvel a ser financiado
-        quantidadeDeAndares = new JLabel("Andares:");
-        quantidadeDeAndares.setBounds(75, 330, 400, 100);
-        quantidadeDeAndares.setFont(new Font("Arial", Font.BOLD, 20));
+        jLabelQuantidadeDeAndares = new JLabel("Andares:");
+        jLabelQuantidadeDeAndares.setBounds(75, 330, 400, 100);
+        jLabelQuantidadeDeAndares.setFont(new Font("Arial", Font.BOLD, 20));
 
-        quantidadeDeVagasDoEstacionamento = new JLabel("Vagas:");
-        quantidadeDeVagasDoEstacionamento.setBounds(95, 380, 400, 100);
-        quantidadeDeVagasDoEstacionamento.setFont(new Font("Arial", Font.BOLD, 20));
+        jLabelQuantidadeDeVagasDoEstacionamento = new JLabel("Vagas:");
+        jLabelQuantidadeDeVagasDoEstacionamento.setBounds(95, 380, 400, 100);
+        jLabelQuantidadeDeVagasDoEstacionamento.setFont(new Font("Arial", Font.BOLD, 20));
 
-        areaTerreno = new JLabel("Área do terreno:");
-        areaTerreno.setBounds(5, 330, 400, 100);
-        areaTerreno.setFont(new Font("Arial", Font.BOLD, 20));
+        jLabelAreaTerreno = new JLabel("Área do terreno:");
+        jLabelAreaTerreno.setBounds(5, 330, 400, 100);
+        jLabelAreaTerreno.setFont(new Font("Arial", Font.BOLD, 20));
 
-        areaConstruida = new JLabel("Vagas:");
-        areaConstruida.setBounds(95, 380, 400, 100);
-        areaConstruida.setFont(new Font("Arial", Font.BOLD, 20));
+        jLabelAreaConstruida = new JLabel("Vagas:");
+        jLabelAreaConstruida.setBounds(95, 380, 400, 100);
+        jLabelAreaConstruida.setFont(new Font("Arial", Font.BOLD, 20));
 
-        tipoDeZona = new JLabel("Tipo de Zona:");
-        tipoDeZona.setBounds(30, 330, 400, 100);
-        tipoDeZona.setFont(new Font("Arial", Font.BOLD, 20));
+        jLabelTipoDeZona = new JLabel("Tipo de Zona:");
+        jLabelTipoDeZona.setBounds(30, 330, 400, 100);
+        jLabelTipoDeZona.setFont(new Font("Arial", Font.BOLD, 20));
 
-        panelInformacoesDoFinanciamento.add(quantidadeDeAndares);
-        panelInformacoesDoFinanciamento.add(quantidadeDeVagasDoEstacionamento);
-        panelInformacoesDoFinanciamento.add(areaTerreno);
-        panelInformacoesDoFinanciamento.add(areaConstruida);
-        panelInformacoesDoFinanciamento.add(tipoDeZona);
+        panelInformacoesDoFinanciamento.add(jLabelQuantidadeDeAndares);
+        panelInformacoesDoFinanciamento.add(jLabelQuantidadeDeVagasDoEstacionamento);
+        panelInformacoesDoFinanciamento.add(jLabelAreaTerreno);
+        panelInformacoesDoFinanciamento.add(jLabelAreaConstruida);
+        panelInformacoesDoFinanciamento.add(jLabelTipoDeZona);
 
 
         // Deixando as JLabels específicas invisíveis
-        quantidadeDeAndares.setVisible(false);
-        quantidadeDeVagasDoEstacionamento.setVisible(false);
-        areaTerreno.setVisible(false);
-        areaConstruida.setVisible(false);
-        tipoDeZona.setVisible(false);
+        jLabelQuantidadeDeAndares.setVisible(false);
+        jLabelQuantidadeDeVagasDoEstacionamento.setVisible(false);
+        jLabelAreaTerreno.setVisible(false);
+        jLabelAreaConstruida.setVisible(false);
+        jLabelTipoDeZona.setVisible(false);
 
 
         // JTextField Informações obrigatórias para todos os financiamentos
-        valor = new JTextField();
-        valor.setBounds(165,222,110,20);
-        valor.setFont(new Font("Arial", Font.BOLD, 15));
+        jTextFieldValorImovel = new JTextField("49999.99 > valor");
+        jTextFieldValorImovel.setBounds(165,222,110,20);
+        jTextFieldValorImovel.setFont(new Font("Arial", Font.BOLD, 15));
 
-        prazo = new JTextField();
-        prazo.setBounds(165,272,110,20);
-        prazo.setFont(new Font("Arial", Font.BOLD, 15));
+        jTextFieldPrazo = new JTextField("0 < prazo > 36");
+        jTextFieldPrazo.setBounds(165,272,110,20);
+        jTextFieldPrazo.setFont(new Font("Arial", Font.BOLD, 15));
 
-        jurosAnual = new JTextField();
-        jurosAnual.setBounds(165,322,110,20);
-        jurosAnual.setFont(new Font("Arial", Font.BOLD, 15));
+        jTextFieldJurosAnual = new JTextField("5% < juros > 13%");
+        jTextFieldJurosAnual.setBounds(165,322,110,20);
+        jTextFieldJurosAnual.setFont(new Font("Arial", Font.BOLD, 15));
 
-        panelInformacoesDoFinanciamento.add(valor);
-        panelInformacoesDoFinanciamento.add(prazo);
-        panelInformacoesDoFinanciamento.add(jurosAnual);
+        panelInformacoesDoFinanciamento.add(jTextFieldValorImovel);
+        panelInformacoesDoFinanciamento.add(jTextFieldPrazo);
+        panelInformacoesDoFinanciamento.add(jTextFieldJurosAnual);
 
         // JTextField Informações específicas de cada imóvel a ser financiado
-        andares = new JTextField();
-        andares.setBounds(165,372,110,20);
-        andares.setFont(new Font("Arial", Font.BOLD, 15));
+        jTextFieldAndares = new JTextField();
+        jTextFieldAndares.setBounds(165,372,110,20);
+        jTextFieldAndares.setFont(new Font("Arial", Font.BOLD, 15));
 
-        vagas = new JTextField();
-        vagas.setBounds(165,422,110,20);
-        vagas.setFont(new Font("Arial", Font.BOLD, 15));
+        jTextFieldVagas = new JTextField();
+        jTextFieldVagas.setBounds(165,422,110,20);
+        jTextFieldVagas.setFont(new Font("Arial", Font.BOLD, 15));
 
-        terreno = new JTextField();
-        terreno.setBounds(165,372,110,20);
-        terreno.setFont(new Font("Arial", Font.BOLD, 15));
+        jTextFieldTerreno = new JTextField();
+        jTextFieldTerreno.setBounds(165,372,110,20);
+        jTextFieldTerreno.setFont(new Font("Arial", Font.BOLD, 15));
 
-        construida = new JTextField();
-        construida.setBounds(165,422,110,20);
-        construida .setFont(new Font("Arial", Font.BOLD, 15));
+        jTextFieldConstruida = new JTextField();
+        jTextFieldConstruida.setBounds(165,422,110,20);
+        jTextFieldConstruida.setFont(new Font("Arial", Font.BOLD, 15));
 
-        zona = new JTextField();
-        zona.setBounds(165,372,110,20);
-        zona.setFont(new Font("Arial", Font.BOLD, 15));
+        jTextFieldZona = new JTextField();
+        jTextFieldZona.setBounds(165,372,110,20);
+        jTextFieldZona.setFont(new Font("Arial", Font.BOLD, 15));
 
-        panelInformacoesDoFinanciamento.add(andares);
-        panelInformacoesDoFinanciamento.add(vagas);
-        panelInformacoesDoFinanciamento.add(terreno);
-        panelInformacoesDoFinanciamento.add(construida);
-        panelInformacoesDoFinanciamento.add(zona);
+        panelInformacoesDoFinanciamento.add(jTextFieldAndares);
+        panelInformacoesDoFinanciamento.add(jTextFieldVagas);
+        panelInformacoesDoFinanciamento.add(jTextFieldTerreno);
+        panelInformacoesDoFinanciamento.add(jTextFieldConstruida);
+        panelInformacoesDoFinanciamento.add(jTextFieldZona);
 
         setVisible(true);
 
 
         // Deixando os JTextFields específicos invisíveis
-        andares.setVisible(false);
-        vagas.setVisible(false);
-        terreno.setVisible(false);
-        construida.setVisible(false);
-        zona.setVisible(false);
+        jTextFieldAndares.setVisible(false);
+        jTextFieldVagas.setVisible(false);
+        jTextFieldTerreno.setVisible(false);
+        jTextFieldConstruida.setVisible(false);
+        jTextFieldZona.setVisible(false);
 
 
         // Criando um financiamento por meio do jButton salvarInformacoes
@@ -225,37 +230,61 @@ public class Painel extends JFrame {
     // Radiobuttons funções
     public void actionPerformed(ActionEvent e) {
         // Deixando as JLabels específicas invisíveis
-        quantidadeDeAndares.setVisible(false);
-        quantidadeDeVagasDoEstacionamento.setVisible(false);
-        areaTerreno.setVisible(false);
-        areaConstruida.setVisible(false);
-        tipoDeZona.setVisible(false);
+        jLabelQuantidadeDeAndares.setVisible(false);
+        jLabelQuantidadeDeVagasDoEstacionamento.setVisible(false);
+        jLabelAreaTerreno.setVisible(false);
+        jLabelAreaConstruida.setVisible(false);
+        jLabelTipoDeZona.setVisible(false);
 
         // Deixando os JTextFields específicos invisíveis
-        andares.setVisible(false);
-        vagas.setVisible(false);
-        terreno.setVisible(false);
-        construida.setVisible(false);
-        zona.setVisible(false);
+        jTextFieldAndares.setVisible(false);
+        jTextFieldVagas.setVisible(false);
+        jTextFieldTerreno.setVisible(false);
+        jTextFieldConstruida.setVisible(false);
+        jTextFieldZona.setVisible(false);
 
         // Controlando a visibilidade de valores específicos
         if (e.getSource() == apartamentoButton) {
-            quantidadeDeAndares.setVisible(true);
-            quantidadeDeVagasDoEstacionamento.setVisible(true);
-            andares.setVisible(true);
-            vagas.setVisible(true);
+            jLabelQuantidadeDeAndares.setVisible(true);
+            jLabelQuantidadeDeVagasDoEstacionamento.setVisible(true);
+            jTextFieldAndares.setVisible(true);
+            jTextFieldVagas.setVisible(true);
         } else if (e.getSource() == casaButton) {
-            areaTerreno.setVisible(true);
-            areaConstruida.setVisible(true);
-            terreno.setVisible(true);
-            construida.setVisible(true);
+            jLabelAreaTerreno.setVisible(true);
+            jLabelAreaConstruida.setVisible(true);
+            jTextFieldTerreno.setVisible(true);
+            jTextFieldConstruida.setVisible(true);
         } else if (e.getSource() == terrenoButton) {
-            tipoDeZona.setVisible(true);
-            zona.setVisible(true);
+            jLabelTipoDeZona.setVisible(true);
+            jTextFieldZona.setVisible(true);
         }
     }
 
     public void criarFinanciamento(ActionEvent e) {
-        System.out.println("a");
+        try {
+            float valorImovel = Float.parseFloat(jTextFieldValorImovel.getText());
+            int prazoFinanciamento = Integer.parseInt(jTextFieldPrazo.getText());
+            float jurosAnual = Float.parseFloat(jTextFieldJurosAnual.getText());
+
+            InterfaceUsuario.validarValorImovel(valorImovel);
+            InterfaceUsuario.validarPrazoDoFinanciamentoEmAnos(prazoFinanciamento);
+            InterfaceUsuario.validarTaxaDeJurosAnual(jurosAnual);
+
+            System.out.println(valorImovel);
+            System.out.println(prazoFinanciamento);
+            System.out.println(jurosAnual);
+        } catch (NumberFormatException error) {
+            JOptionPane.showMessageDialog(null, "Valores inválidos.",
+                    "ERROR: Valores incompatíveis.", JOptionPane.ERROR_MESSAGE);
+        } catch (ValorImovelInvalidoException error) {
+            JOptionPane.showMessageDialog(null, "Insira um valor maior ou igual a R$50000.00.",
+                    "ERROR: Valor do imóvel inválido.", JOptionPane.ERROR_MESSAGE);
+        } catch (PrazoFinanciamentoInvalidoException error) {
+            JOptionPane.showMessageDialog(null, "Insira um valor inteiro entre 0 e 36.",
+                    "ERROR: Prazo do financiamento inválido.", JOptionPane.ERROR_MESSAGE);
+        } catch (JurosFinanciamentoInvalidoException error) {
+            JOptionPane.showMessageDialog(null, "Insira um valor entre entre 5% e 13%.",
+                    "ERROR: Juros do financiamento inválido.", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

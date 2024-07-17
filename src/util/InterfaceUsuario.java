@@ -1,5 +1,8 @@
 package util;
 
+import Exceptions.ValorImovelInvalidoException;
+import Exceptions.PrazoFinanciamentoInvalidoException;
+import Exceptions.JurosFinanciamentoInvalidoException;
 import Exceptions.ValorInvalidoException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -8,92 +11,27 @@ import java.util.Scanner;
 public class InterfaceUsuario {
     static Scanner sc = new Scanner(System.in);
 
-    // Financiamento
-    public static String obterTipoFinanciamento() {
-        while (true) {
-            try {
-                System.out.print("\n1 - Casa\n2 - Apartamento\n3 - Terreno\n\nInforme o que deseja financiar: ");
-                int escolha = sc.nextInt();
-                sc.nextLine();
+    public static double validarValorImovel(float preco) throws ValorImovelInvalidoException{
+        if (preco < 50000)
+            throw new ValorImovelInvalidoException("O valor informado está fora dos limites permitidos.");
 
-                if (escolha == 1)
-                    return "Casa";
-                if (escolha == 2)
-                    return "Apartamento";
-                if (escolha == 3)
-                    return "Terreno";
-
-                System.out.println("Opção inexistente");
-
-            } catch (InputMismatchException e) {
-                System.out.println("Valor inválido. Por favor, insira um número inteiro.");
-                sc.nextLine();
-            }
-        }
+        return preco;
     }
 
-    public static double obterValorImovel(){
-        while (true) {
-            try {
-                System.out.print("\nInforme o valor do imóvel(mínimo R$50.000): ");
-                double preco = sc.nextDouble();
-                sc.nextLine();
+    public static int validarPrazoDoFinanciamentoEmAnos(int prazo) throws PrazoFinanciamentoInvalidoException {
+        if ((prazo < 1) || prazo > 35)
+            throw new PrazoFinanciamentoInvalidoException("O valor informado está fora dos limites permitidos.");
 
-                if (preco < 50000)
-                    throw new ValorInvalidoException("O valor informado está fora dos limites permitidos.");
-
-                return preco;
-
-            } catch (InputMismatchException e) {
-                System.out.println("Valor inválido. Por favor, insira um número.");
-                sc.nextLine();
-            } catch (ValorInvalidoException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        return prazo;
     }
 
-    public static int obterPrazoDoFinanciamentoEmAnos() {
-        while (true) {
-            try {
-                System.out.print("\nInforme o prazo do financiamento em anos(mínimo 1 | máximo 35): ");
-                int prazoEmAnos = sc.nextInt();
-                sc.nextLine();
+    public static double validarTaxaDeJurosAnual(float juros) throws JurosFinanciamentoInvalidoException {
+        if ((juros < 6) || (juros > 12))
+            throw new JurosFinanciamentoInvalidoException("O valor informado está fora dos limites permitidos.");
 
-                if ((prazoEmAnos < 1) || prazoEmAnos > 35)
-                    throw new ValorInvalidoException("O valor informado está fora dos limites permitidos.");
-
-                return prazoEmAnos;
-
-            } catch (InputMismatchException e) {
-                System.out.println("Valor inválido. Por favor, insira um número inteiro.");
-                sc.nextLine();
-            } catch (ValorInvalidoException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        return juros;
     }
 
-    public static double obterTaxaDeJurosAnual() {
-        while (true) {
-            try {
-                System.out.print("\nInforme a taxa de juros anual(mínimo 6% | máximo 12%): ");
-                double taxaDeJurosAnual = sc.nextDouble();
-                sc.nextLine();
-
-                if ((taxaDeJurosAnual < 6) || (taxaDeJurosAnual > 12))
-                    throw new ValorInvalidoException("O valor informado está fora dos limites permitidos.");
-
-                return taxaDeJurosAnual / 100;
-
-            } catch (InputMismatchException e) {
-                System.out.println("Valor inválido. Por favor, insira um número.");
-                sc.nextLine();
-            } catch (ValorInvalidoException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
 
     // Casa
     public static double obterAreaTerreno() {
