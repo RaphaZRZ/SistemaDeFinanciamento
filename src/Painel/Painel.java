@@ -1,21 +1,21 @@
 /*
-Criar seleção entre dois tipos de zona em Terreno
-Instanciar financiamentos
-Salvar/Listar/Excluir financiamentos
+Criar Listar/Editar/Excluir financiamentos
  */
 
 package Painel;
 
 import Exceptions.*;
+import modelo.*;
 import util.ValidarValores;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class Painel extends JFrame {
 
-    // Adicionando variáveis fora do construtor para utilizar a variável em outros métodos
+    // Adicionando variáveis fora do construtor para utilizar em outros métodos
     JRadioButton apartamentoButton;
     JRadioButton casaButton;
     JRadioButton terrenoButton;
@@ -31,8 +31,15 @@ public class Painel extends JFrame {
     JTextField jTextFieldQuantidadeDeVagas;
     JTextField jTextFieldAreaTerreno;
     JTextField jTextFieldAreaConstruida;
-    JTextField jTextFieldZona;
-    JButton salvarInformacoes;
+    JComboBox jComboBoxTipoDeZona;
+    JButton salvarFinanciamentos;
+    JButton listarFinanciamentos;
+    JButton editarFinanciamentos;
+    JButton excluirFinanciamentos;
+
+    // Array financiamentos
+    ArrayList financiamentos = new ArrayList<Financiamento>();
+
 
     public Painel() {
         // JFrame
@@ -60,24 +67,32 @@ public class Painel extends JFrame {
         add(panelInformacoesDoFinanciamento);
 
 
+        // JPanel Botões de ação do usuário
+        JPanel panelAcoesUsuario = new JPanel();
+        panelAcoesUsuario.setBounds(330, 100, 360, 500);
+        panelAcoesUsuario.setBackground(new Color(110, 110, 110));
+        panelAcoesUsuario.setLayout(null);
+        add(panelAcoesUsuario);
+
+
         // radioButtons Informação do tipo de financiamento
         apartamentoButton = new JRadioButton("Apartamento");
         apartamentoButton.setOpaque(false);
         apartamentoButton.setBounds(0, 80, 150, 20);
         apartamentoButton.setFont(new Font("Arial", Font.BOLD, 20));
-        apartamentoButton.addActionListener(this::tipoDoImovel);
+        apartamentoButton.addActionListener(this::escolherTipoDoImovel);
 
         casaButton = new JRadioButton("Casa");
         casaButton.setOpaque(false);
         casaButton.setBounds(0, 120, 100, 20);
         casaButton.setFont(new Font("Arial", Font.BOLD, 20));
-        casaButton.addActionListener(this::tipoDoImovel);
+        casaButton.addActionListener(this::escolherTipoDoImovel);
 
         terrenoButton = new JRadioButton("Terreno");
         terrenoButton.setOpaque(false);
         terrenoButton.setBounds(0, 160, 100, 20);
         terrenoButton.setFont(new Font("Arial", Font.BOLD, 20));
-        terrenoButton.addActionListener(this::tipoDoImovel);
+        terrenoButton.addActionListener(this::escolherTipoDoImovel);
 
         panelInformacoesDoFinanciamento.add(apartamentoButton);
         panelInformacoesDoFinanciamento.add(casaButton);
@@ -152,14 +167,6 @@ public class Painel extends JFrame {
         panelInformacoesDoFinanciamento.add(jLabelTipoDeZona);
 
 
-        // Deixando as JLabels específicas invisíveis
-        jLabelQuantidadeDeAndares.setVisible(false);
-        jLabelQuantidadeDeVagasDoEstacionamento.setVisible(false);
-        jLabelAreaTerreno.setVisible(false);
-        jLabelAreaConstruida.setVisible(false);
-        jLabelTipoDeZona.setVisible(false);
-
-
         // JTextField Informações obrigatórias para todos os financiamentos
         jTextFieldValorImovel = new JTextField("49999.99 > valor");
         jTextFieldValorImovel.setBounds(195,222,110,20);
@@ -176,6 +183,7 @@ public class Painel extends JFrame {
         panelInformacoesDoFinanciamento.add(jTextFieldValorImovel);
         panelInformacoesDoFinanciamento.add(jTextFieldPrazoEmAnos);
         panelInformacoesDoFinanciamento.add(jTextFieldJurosAnual);
+
 
         // JTextField Informações específicas de cada imóvel a ser financiado
         jTextFieldQuantidadeDeAndares = new JTextField();
@@ -194,53 +202,92 @@ public class Painel extends JFrame {
         jTextFieldAreaConstruida.setBounds(195,422,110,20);
         jTextFieldAreaConstruida.setFont(new Font("Arial", Font.BOLD, 15));
 
-        jTextFieldZona = new JTextField();
-        jTextFieldZona.setBounds(195,372,110,20);
-        jTextFieldZona.setFont(new Font("Arial", Font.BOLD, 15));
 
         panelInformacoesDoFinanciamento.add(jTextFieldQuantidadeDeAndares);
         panelInformacoesDoFinanciamento.add(jTextFieldQuantidadeDeVagas);
         panelInformacoesDoFinanciamento.add(jTextFieldAreaTerreno);
         panelInformacoesDoFinanciamento.add(jTextFieldAreaConstruida);
-        panelInformacoesDoFinanciamento.add(jTextFieldZona);
+
+
+        // JComboBox Tipo de zona do terreno
+        String[] zonas = {"Residencial", "Comercial"};
+        jComboBoxTipoDeZona = new JComboBox(zonas);
+        jComboBoxTipoDeZona.setBounds(195,372,110,20);
+        panelInformacoesDoFinanciamento.add(jComboBoxTipoDeZona);
+
+
+        // JButton Salvar(cria um financiamento)
+        salvarFinanciamentos = new JButton("Salvar");
+        salvarFinanciamentos.setBounds(27, 30, 300, 70);
+        salvarFinanciamentos.setFont(new Font("Arial", Font.BOLD, 40));
+        salvarFinanciamentos.setForeground(new Color(200, 200, 200));
+        salvarFinanciamentos.setBackground(new Color(50, 50, 50));
+        salvarFinanciamentos.addActionListener(this::criarFinanciamentos);
+        panelAcoesUsuario.add(salvarFinanciamentos);
+
+
+        // JButton Listar(lista todos os financiamentos)
+        listarFinanciamentos = new JButton("Listar");
+        listarFinanciamentos.setBounds(27, 140, 300, 70);
+        listarFinanciamentos.setFont(new Font("Arial", Font.BOLD, 40));
+        listarFinanciamentos.setForeground(new Color(200, 200, 200));
+        listarFinanciamentos.setBackground(new Color(50, 50, 50));
+        listarFinanciamentos.addActionListener(this::listarFinanciamentos);
+        panelAcoesUsuario.add(listarFinanciamentos);
+
+
+        // JButton Editar(edita um financiamento)
+        editarFinanciamentos = new JButton("Editar");
+        editarFinanciamentos.setBounds(27, 250, 300, 70);
+        editarFinanciamentos.setFont(new Font("Arial", Font.BOLD, 40));
+        editarFinanciamentos.setForeground(new Color(200, 200, 200));
+        editarFinanciamentos.setBackground(new Color(50, 50, 50));
+        editarFinanciamentos.addActionListener(this::editarFinanciamentos);
+        panelAcoesUsuario.add(editarFinanciamentos);
+
+
+        // JButton Excluir(exclui um financiamentos)
+        excluirFinanciamentos = new JButton("Excluir");
+        excluirFinanciamentos.setBounds(27, 360, 300, 70);
+        excluirFinanciamentos.setFont(new Font("Arial", Font.BOLD, 40));
+        excluirFinanciamentos.setForeground(new Color(200, 200, 200));
+        excluirFinanciamentos.setBackground(new Color(50, 50, 50));
+        excluirFinanciamentos.addActionListener(this::excluirFinanciamentos);
+        panelAcoesUsuario.add(excluirFinanciamentos);
+
 
         setVisible(true);
 
 
-        // Deixando os JTextFields específicos invisíveis
-        jTextFieldQuantidadeDeAndares.setVisible(false);
-        jTextFieldQuantidadeDeVagas.setVisible(false);
-        jTextFieldAreaTerreno.setVisible(false);
-        jTextFieldAreaConstruida.setVisible(false);
-        jTextFieldZona.setVisible(false);
-
-
-        // Criando um financiamento por meio do jButton salvarInformacoes
-        salvarInformacoes = new JButton("Salvar");
-        salvarInformacoes.setBounds(getX() / 2, 400, 200, 70);
-        salvarInformacoes.setFont(new Font("Arial", Font.BOLD, 40));
-        salvarInformacoes.setForeground(new Color(200, 200, 200));
-        salvarInformacoes.setBackground(new Color(50, 50, 50));
-        salvarInformacoes.addActionListener(this::criarFinanciamento);
-        add(salvarInformacoes);
-    }
-
-
-    // Radiobuttons funções
-    public void tipoDoImovel(ActionEvent e) {
-        // Deixando as JLabels específicas invisíveis
+        // Deixando as JLabels/JTextFields/JComboBox específicos invisíveis
         jLabelQuantidadeDeAndares.setVisible(false);
         jLabelQuantidadeDeVagasDoEstacionamento.setVisible(false);
         jLabelAreaTerreno.setVisible(false);
         jLabelAreaConstruida.setVisible(false);
         jLabelTipoDeZona.setVisible(false);
 
-        // Deixando os JTextFields específicos invisíveis
         jTextFieldQuantidadeDeAndares.setVisible(false);
         jTextFieldQuantidadeDeVagas.setVisible(false);
         jTextFieldAreaTerreno.setVisible(false);
         jTextFieldAreaConstruida.setVisible(false);
-        jTextFieldZona.setVisible(false);
+        jComboBoxTipoDeZona.setVisible(false);
+    }
+
+
+    // Radiobuttons metódo
+    public void escolherTipoDoImovel(ActionEvent e) {
+        // Deixando as JLabels/JTextFields/JComboBox específicos invisíveis
+        jLabelQuantidadeDeAndares.setVisible(false);
+        jLabelQuantidadeDeVagasDoEstacionamento.setVisible(false);
+        jLabelAreaTerreno.setVisible(false);
+        jLabelAreaConstruida.setVisible(false);
+        jLabelTipoDeZona.setVisible(false);
+
+        jTextFieldQuantidadeDeAndares.setVisible(false);
+        jTextFieldQuantidadeDeVagas.setVisible(false);
+        jTextFieldAreaTerreno.setVisible(false);
+        jTextFieldAreaConstruida.setVisible(false);
+        jComboBoxTipoDeZona.setVisible(true);
 
         // Controlando a visibilidade de valores específicos
         if (e.getSource() == apartamentoButton) {
@@ -255,11 +302,13 @@ public class Painel extends JFrame {
             jTextFieldAreaConstruida.setVisible(true);
         } else if (e.getSource() == terrenoButton) {
             jLabelTipoDeZona.setVisible(true);
-            jTextFieldZona.setVisible(true);
+            jComboBoxTipoDeZona.setVisible(true);
         }
     }
 
-    public void criarFinanciamento(ActionEvent e) {
+
+    // JButtom Salvar
+    public void criarFinanciamentos(ActionEvent actionEvent) {
         try {
             // Valores obrigatórias
             float valorImovel = Float.parseFloat(jTextFieldValorImovel.getText());
@@ -277,65 +326,87 @@ public class Painel extends JFrame {
 
                 ValidarValores.quantidadeDeAndares(quantidadeDeAndares);
                 ValidarValores.quantidadeDeVagas(quantidadeDeVagas, quantidadeDeAndares);
-            }
+
+                financiamentos.add(new Apartamento(valorImovel, prazoFinanciamento, jurosAnual, quantidadeDeAndares, quantidadeDeVagas));
 
             // Valores específicos da classe Casa
-            else if (jLabelAreaTerreno.isVisible()) {
+            } else if (jLabelAreaTerreno.isVisible()) {
                 double areaTerreno = Double.parseDouble(jTextFieldAreaTerreno.getText());
                 double areaConstruida = Double.parseDouble(jTextFieldAreaConstruida.getText());
 
                 ValidarValores.areaTerreno(areaTerreno);
                 ValidarValores.areaConstruida(areaConstruida, areaTerreno);
 
+                financiamentos.add(new Casa(valorImovel, prazoFinanciamento, jurosAnual, areaTerreno, areaConstruida));
+
             // Valores específicos da classe Terreno
             } else if (jLabelTipoDeZona.isVisible()) {
-                System.out.println("b");
+                String tipoDeZona = (String)jComboBoxTipoDeZona.getSelectedItem();
+                System.out.println(tipoDeZona);
+
+                financiamentos.add(new Terreno(valorImovel, prazoFinanciamento, jurosAnual, tipoDeZona));
 
             // Tipo do imóvel não selecionado
             } else
                 throw new TipoFinanciamentoInvalidoException("Imóvel inválido");
 
-            System.out.println(valorImovel);
-            System.out.println(prazoFinanciamento);
-            System.out.println(jurosAnual);
+            ImageIcon icon = new ImageIcon("C:\\Users\\rapha\\OneDrive\\Desktop\\PUCPR\\Repositórios\\SistemaDeFinanciamento\\src\\Painel\\right.png");
+            JOptionPane.showMessageDialog(null, "financiamento aprovado.",
+                    "Financiamento Realizado", JOptionPane.INFORMATION_MESSAGE, icon);
+
+
+            // TIRAR
+            for (Object financiamento : financiamentos) {
+                System.out.println(financiamento);
+            }
 
             // Geral Exceptions
-        } catch (NumberFormatException error) {
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Valores inválidos.",
                     "ERROR: Valores incompatíveis.", JOptionPane.ERROR_MESSAGE);
-        } catch (ValorImovelInvalidoException error) {
+        } catch (ValorImovelInvalidoException e) {
             JOptionPane.showMessageDialog(null, "Insira um valor maior ou igual a R$50000.00.",
                     "ERROR: Valor do imóvel inválido.", JOptionPane.ERROR_MESSAGE);
-        } catch (PrazoFinanciamentoInvalidoException error) {
+        } catch (PrazoFinanciamentoInvalidoException e) {
             JOptionPane.showMessageDialog(null, "Insira um valor inteiro entre 0 e 36.",
                     "ERROR: Prazo do financiamento inválido.", JOptionPane.ERROR_MESSAGE);
-        } catch (JurosFinanciamentoInvalidoException error) {
+        } catch (JurosFinanciamentoInvalidoException e) {
             JOptionPane.showMessageDialog(null, "Insira um valor maior ou igual a 6% e menor ou igual a 12%.",
                     "ERROR: Juros do financiamento inválido.", JOptionPane.ERROR_MESSAGE);
-        } catch (TipoFinanciamentoInvalidoException error) {
+        } catch (TipoFinanciamentoInvalidoException e) {
             JOptionPane.showMessageDialog(null, "Selecione o tipo do imóvel que deseja financiar.",
                     "ERROR: Tipo de imóvel inválido.", JOptionPane.ERROR_MESSAGE);
 
             // Apartamento Exceptions
-        } catch (QuantidadeDeAndaresInvalidaException error) {
+        } catch (QuantidadeDeAndaresInvalidaException e) {
             JOptionPane.showMessageDialog(null, "Insira um valor inteiro maior ou igual a 4.",
                     "ERROR: Quantidade de andares inválida.", JOptionPane.ERROR_MESSAGE);
-        } catch (QuantidadeDeVagasInvalidaException error) {
+        } catch (QuantidadeDeVagasInvalidaException e) {
             JOptionPane.showMessageDialog(null, "Quantidade de vagas não pode ser inferior a quantidade de andares.",
                     "ERROR: Quantidade de vagas inválida.", JOptionPane.ERROR_MESSAGE);
 
             // Casa Exceptions
-        } catch(AreaTerrenoInvalidaException error) {
+        } catch(AreaTerrenoInvalidaException e) {
             JOptionPane.showMessageDialog(null, "Área do terreno não pode ser inferior a 2,5 metros.",
                     "ERROR: Área do terreno inválida.", JOptionPane.ERROR_MESSAGE);
-        } catch(AreaConstruidaInvalidaException error) {
+        } catch(AreaConstruidaInvalidaException e) {
             JOptionPane.showMessageDialog(null, "Área construida não pode ser superior a área do terreno.",
                     "ERROR: Área construída inválida.", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
 
-            // Terreno Exceptions
-        } /*catch() {
+    // JButton Listar
+    private void listarFinanciamentos(ActionEvent actionEvent) {
+    }
 
-        }*/
+
+    // JButton Editar
+    private void editarFinanciamentos(ActionEvent actionEvent) {
+    }
+
+
+    // JButton excluir
+    private void excluirFinanciamentos(ActionEvent actionEvent) {
     }
 }

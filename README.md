@@ -1,6 +1,9 @@
 # SistemaDeFinanciamento
  Financiamento de imóveis para um banco. Demonstra conceitos de Programação Orientada a Objetos em Java
 
+*19/07/2024:* Implementação de todas as regras de negócio.
+              Implementação do botão Salvar.
+              Começo da implementação dos botões Listar/Editar/Excluir.
 *17/07/2024:* Implementação das regras de negócio para financiamentos de casas e apartamentos.
 *16/07/2024:* Criação de novas exceções.
               Começo da implementação das regras de negócio.
