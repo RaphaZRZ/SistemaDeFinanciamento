@@ -1,6 +1,7 @@
 # SistemaDeFinanciamento
  Financiamento de imóveis para um banco. Demonstra conceitos de Programação Orientada a Objetos em Java
 
+*22/07/2924:* Começo da implementação da função listar.
 *19/07/2024:* Implementação de todas as regras de negócio.
               Implementação do botão Salvar.
               Começo da implementação dos botões Listar/Editar/Excluir.

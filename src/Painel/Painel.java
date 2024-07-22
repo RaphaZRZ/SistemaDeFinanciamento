@@ -32,13 +32,14 @@ public class Painel extends JFrame {
     JTextField jTextFieldAreaTerreno;
     JTextField jTextFieldAreaConstruida;
     JComboBox jComboBoxTipoDeZona;
+    JComboBox listaDeFinanciamentos;
     JButton salvarFinanciamentos;
     JButton listarFinanciamentos;
     JButton editarFinanciamentos;
     JButton excluirFinanciamentos;
 
     // Array financiamentos
-    ArrayList financiamentos = new ArrayList<Financiamento>();
+    public ArrayList<Financiamento> financiamentos = new ArrayList<>();
 
 
     public Painel() {
@@ -214,6 +215,13 @@ public class Painel extends JFrame {
         jComboBoxTipoDeZona = new JComboBox(zonas);
         jComboBoxTipoDeZona.setBounds(195,372,110,20);
         panelInformacoesDoFinanciamento.add(jComboBoxTipoDeZona);
+
+
+        // JComboBox Lista de financiamentos já registrados
+        /*
+        jComboBoxTipoDeZona = new JComboBox();
+        jComboBoxTipoDeZona.setBounds(195,372,110,20);
+        WindowListar.add(jComboBoxTipoDeZona);*/
 
 
         // JButton Salvar(cria um financiamento)
@@ -398,6 +406,8 @@ public class Painel extends JFrame {
 
     // JButton Listar
     private void listarFinanciamentos(ActionEvent actionEvent) {
+        dispose();
+        WindowListar listar = new WindowListar();
     }
 
 
