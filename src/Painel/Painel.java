@@ -1,5 +1,5 @@
 /*
-Criar Listar/Editar/Excluir financiamentos
+Método escolherTipoDoImovel deve retornar uma String do tipo de imóvel escolhido
  */
 
 package Painel;
@@ -32,14 +32,14 @@ public class Painel extends JFrame {
     JTextField jTextFieldAreaTerreno;
     JTextField jTextFieldAreaConstruida;
     JComboBox jComboBoxTipoDeZona;
-    JComboBox listaDeFinanciamentos;
     JButton salvarFinanciamentos;
     JButton listarFinanciamentos;
     JButton editarFinanciamentos;
     JButton excluirFinanciamentos;
 
-    // Array financiamentos
-    public ArrayList<Financiamento> financiamentos = new ArrayList<>();
+    // Variáveis não relacionadas ao JavaSwing
+    int codigo = 0;
+    ArrayList<Financiamento> financiamentos = new ArrayList<>();
 
 
     public Painel() {
@@ -217,13 +217,6 @@ public class Painel extends JFrame {
         panelInformacoesDoFinanciamento.add(jComboBoxTipoDeZona);
 
 
-        // JComboBox Lista de financiamentos já registrados
-        /*
-        jComboBoxTipoDeZona = new JComboBox();
-        jComboBoxTipoDeZona.setBounds(195,372,110,20);
-        WindowListar.add(jComboBoxTipoDeZona);*/
-
-
         // JButton Salvar(cria um financiamento)
         salvarFinanciamentos = new JButton("Salvar");
         salvarFinanciamentos.setBounds(27, 30, 300, 70);
@@ -335,7 +328,7 @@ public class Painel extends JFrame {
                 ValidarValores.quantidadeDeAndares(quantidadeDeAndares);
                 ValidarValores.quantidadeDeVagas(quantidadeDeVagas, quantidadeDeAndares);
 
-                financiamentos.add(new Apartamento(valorImovel, prazoFinanciamento, jurosAnual, quantidadeDeAndares, quantidadeDeVagas));
+                financiamentos.add(new Apartamento(codigo, valorImovel, prazoFinanciamento, jurosAnual, quantidadeDeAndares, quantidadeDeVagas));
 
             // Valores específicos da classe Casa
             } else if (jLabelAreaTerreno.isVisible()) {
@@ -345,14 +338,12 @@ public class Painel extends JFrame {
                 ValidarValores.areaTerreno(areaTerreno);
                 ValidarValores.areaConstruida(areaConstruida, areaTerreno);
 
-                financiamentos.add(new Casa(valorImovel, prazoFinanciamento, jurosAnual, areaTerreno, areaConstruida));
+                financiamentos.add(new Casa(codigo, valorImovel, prazoFinanciamento, jurosAnual, areaTerreno, areaConstruida));
 
             // Valores específicos da classe Terreno
             } else if (jLabelTipoDeZona.isVisible()) {
                 String tipoDeZona = (String)jComboBoxTipoDeZona.getSelectedItem();
-                System.out.println(tipoDeZona);
-
-                financiamentos.add(new Terreno(valorImovel, prazoFinanciamento, jurosAnual, tipoDeZona));
+                financiamentos.add(new Terreno(codigo, valorImovel, prazoFinanciamento, jurosAnual, tipoDeZona));
 
             // Tipo do imóvel não selecionado
             } else
@@ -361,6 +352,7 @@ public class Painel extends JFrame {
             ImageIcon icon = new ImageIcon("C:\\Users\\rapha\\OneDrive\\Desktop\\PUCPR\\Repositórios\\SistemaDeFinanciamento\\src\\Painel\\right.png");
             JOptionPane.showMessageDialog(null, "financiamento aprovado.",
                     "Financiamento Realizado", JOptionPane.INFORMATION_MESSAGE, icon);
+            codigo += 1;
 
 
             // TIRAR
@@ -407,7 +399,7 @@ public class Painel extends JFrame {
     // JButton Listar
     private void listarFinanciamentos(ActionEvent actionEvent) {
         dispose();
-        WindowListar listar = new WindowListar();
+        WindowListar listar = new WindowListar(financiamentos);
     }
 
 
@@ -418,5 +410,9 @@ public class Painel extends JFrame {
 
     // JButton excluir
     private void excluirFinanciamentos(ActionEvent actionEvent) {
+    }
+
+    public ArrayList<Financiamento> getFinanciamentos() {
+        return financiamentos;
     }
 }

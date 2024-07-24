@@ -5,8 +5,8 @@ public class Apartamento extends Financiamento{
     private int quantidadeDeAndares;
     private int quantidadeDeVagasDoEstacionamento;
 
-    public Apartamento(double valorApartamento, int prazoFinanciamentoEmAnos, double taxaJurosAnual, int quantidadeDeAndares, int quantidadeDeVagasDoEstacionamento) {
-        super(valorApartamento, prazoFinanciamentoEmAnos, taxaJurosAnual);
+    public Apartamento(int codigo, double valorApartamento, int prazoFinanciamentoEmAnos, double taxaJurosAnual, int quantidadeDeAndares, int quantidadeDeVagasDoEstacionamento) {
+        super(codigo, valorApartamento, prazoFinanciamentoEmAnos, taxaJurosAnual);
         this.quantidadeDeAndares = quantidadeDeAndares;
         this.quantidadeDeVagasDoEstacionamento = quantidadeDeVagasDoEstacionamento;
     }

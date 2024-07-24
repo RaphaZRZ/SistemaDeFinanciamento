@@ -1,7 +1,9 @@
 # SistemaDeFinanciamento
  Financiamento de imóveis para um banco. Demonstra conceitos de Programação Orientada a Objetos em Java
 
-*22/07/2924:* Começo da implementação da função listar.
+*23/07/2024:* Criação de código único para cada financiamento.
+              Criação de uma variável específica para identificar o tipo do imóvel a ser financiado.
+*22/07/2024:* Começo da implementação da função listar.
 *19/07/2024:* Implementação de todas as regras de negócio.
               Implementação do botão Salvar.
               Começo da implementação dos botões Listar/Editar/Excluir.
