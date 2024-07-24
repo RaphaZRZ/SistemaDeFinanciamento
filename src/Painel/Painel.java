@@ -1,5 +1,5 @@
 /*
-Método escolherTipoDoImovel deve retornar uma String do tipo de imóvel escolhido
+Arrumar área construida jlabel
  */
 
 package Painel;
@@ -123,8 +123,8 @@ public class Painel extends JFrame {
 
 
         // JLabel Informações obrigatórias para todos os financiamentos
-        JLabel valorImovel = new JLabel("Valor imóvel:");
-        valorImovel.setBounds(69, 180, 400, 100);
+        JLabel valorImovel = new JLabel("Valor do imóvel:");
+        valorImovel.setBounds(39, 180, 400, 100);
         valorImovel.setFont(new Font("Arial", Font.BOLD, 20));
 
         JLabel prazoEmAnos = new JLabel("Prazo(em anos):");
@@ -153,8 +153,8 @@ public class Painel extends JFrame {
         jLabelAreaTerreno.setBounds(37, 330, 400, 100);
         jLabelAreaTerreno.setFont(new Font("Arial", Font.BOLD, 20));
 
-        jLabelAreaConstruida = new JLabel("Área do construída:");
-        jLabelAreaConstruida.setBounds(5, 380, 400, 100);
+        jLabelAreaConstruida = new JLabel("Área construída:");
+        jLabelAreaConstruida.setBounds(20, 380, 400, 100);
         jLabelAreaConstruida.setFont(new Font("Arial", Font.BOLD, 20));
 
         jLabelTipoDeZona = new JLabel("Tipo de Zona:");
@@ -169,15 +169,15 @@ public class Painel extends JFrame {
 
 
         // JTextField Informações obrigatórias para todos os financiamentos
-        jTextFieldValorImovel = new JTextField("49999.99 > valor");
+        jTextFieldValorImovel = new JTextField("50000");
         jTextFieldValorImovel.setBounds(195,222,110,20);
         jTextFieldValorImovel.setFont(new Font("Arial", Font.BOLD, 15));
 
-        jTextFieldPrazoEmAnos = new JTextField("0 < prazo > 36");
+        jTextFieldPrazoEmAnos = new JTextField("8");
         jTextFieldPrazoEmAnos.setBounds(195,272,110,20);
         jTextFieldPrazoEmAnos.setFont(new Font("Arial", Font.BOLD, 15));
 
-        jTextFieldJurosAnual = new JTextField("5% < juros > 13%");
+        jTextFieldJurosAnual = new JTextField("8");
         jTextFieldJurosAnual.setBounds(195,322,110,20);
         jTextFieldJurosAnual.setFont(new Font("Arial", Font.BOLD, 15));
 
@@ -320,6 +320,7 @@ public class Painel extends JFrame {
             ValidarValores.prazoDoFinanciamentoEmAnos(prazoFinanciamento);
             ValidarValores.taxaDeJurosAnual(jurosAnual);
 
+
             // Valores específicos da classe Apartamento
             if (jLabelQuantidadeDeAndares.isVisible()) {
                 int quantidadeDeAndares = Integer.parseInt(jTextFieldQuantidadeDeAndares.getText());
@@ -328,7 +329,7 @@ public class Painel extends JFrame {
                 ValidarValores.quantidadeDeAndares(quantidadeDeAndares);
                 ValidarValores.quantidadeDeVagas(quantidadeDeVagas, quantidadeDeAndares);
 
-                financiamentos.add(new Apartamento(codigo, valorImovel, prazoFinanciamento, jurosAnual, quantidadeDeAndares, quantidadeDeVagas));
+                financiamentos.add(new Apartamento(codigo, "Apartamento", valorImovel, prazoFinanciamento, jurosAnual, quantidadeDeAndares, quantidadeDeVagas));
 
             // Valores específicos da classe Casa
             } else if (jLabelAreaTerreno.isVisible()) {
@@ -338,12 +339,12 @@ public class Painel extends JFrame {
                 ValidarValores.areaTerreno(areaTerreno);
                 ValidarValores.areaConstruida(areaConstruida, areaTerreno);
 
-                financiamentos.add(new Casa(codigo, valorImovel, prazoFinanciamento, jurosAnual, areaTerreno, areaConstruida));
+                financiamentos.add(new Casa(codigo, "Casa", valorImovel, prazoFinanciamento, jurosAnual, areaTerreno, areaConstruida));
 
             // Valores específicos da classe Terreno
             } else if (jLabelTipoDeZona.isVisible()) {
                 String tipoDeZona = (String)jComboBoxTipoDeZona.getSelectedItem();
-                financiamentos.add(new Terreno(codigo, valorImovel, prazoFinanciamento, jurosAnual, tipoDeZona));
+                financiamentos.add(new Terreno(codigo, "Terreno", valorImovel, prazoFinanciamento, jurosAnual, tipoDeZona));
 
             // Tipo do imóvel não selecionado
             } else
@@ -354,11 +355,6 @@ public class Painel extends JFrame {
                     "Financiamento Realizado", JOptionPane.INFORMATION_MESSAGE, icon);
             codigo += 1;
 
-
-            // TIRAR
-            for (Object financiamento : financiamentos) {
-                System.out.println(financiamento);
-            }
 
             // Geral Exceptions
         } catch (NumberFormatException e) {
@@ -410,9 +406,5 @@ public class Painel extends JFrame {
 
     // JButton excluir
     private void excluirFinanciamentos(ActionEvent actionEvent) {
-    }
-
-    public ArrayList<Financiamento> getFinanciamentos() {
-        return financiamentos;
     }
 }

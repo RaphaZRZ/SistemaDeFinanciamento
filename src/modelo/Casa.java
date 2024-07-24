@@ -7,8 +7,8 @@ public class Casa extends Financiamento{
     private double areaTerreno;
     private double areaConstruida;
 
-    public Casa(int codigo,double valorCasa, int prazoFinanciamentoEmAnos, double taxaJurosAnual, double areaConstruida, double areaTerreno) {
-        super(codigo, valorCasa, prazoFinanciamentoEmAnos, taxaJurosAnual);
+    public Casa(int codigo, String tipoDoImovel, double valorCasa, int prazoFinanciamentoEmAnos, double taxaJurosAnual, double areaConstruida, double areaTerreno) {
+        super(codigo, tipoDoImovel, valorCasa, prazoFinanciamentoEmAnos, taxaJurosAnual);
         this.areaTerreno = areaTerreno;
         this.areaConstruida = areaConstruida;
     }

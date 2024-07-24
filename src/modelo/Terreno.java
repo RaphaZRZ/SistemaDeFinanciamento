@@ -4,8 +4,8 @@ package modelo;
 public class Terreno extends Financiamento{
     private String tipoDeZona;
 
-    public Terreno(int codigo, double valorTerreno, int prazoFinanciamentoEmAnos, double taxaJurosAnual, String tipoDeZona) {
-        super(codigo, valorTerreno, prazoFinanciamentoEmAnos, taxaJurosAnual);
+    public Terreno(int codigo, String tipoDoImovel, double valorTerreno, int prazoFinanciamentoEmAnos, double taxaJurosAnual, String tipoDeZona) {
+        super(codigo, tipoDoImovel, valorTerreno, prazoFinanciamentoEmAnos, taxaJurosAnual);
         this.tipoDeZona = tipoDeZona;
     }
 

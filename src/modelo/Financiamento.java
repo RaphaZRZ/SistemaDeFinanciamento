@@ -5,14 +5,16 @@ import java.io.Serializable;
 
 public abstract class Financiamento implements Serializable {
     protected int codigo;
+    protected String tipoDoImovel;
     protected double valorImovel;
     protected int prazoFinanciamentoEmAnos;
     protected int prazoFinanciamentoEmMeses;
     protected double taxaJurosAnual;
     protected double taxaJurosMensal;
 
-    public Financiamento(int codigo, double valorImovel, int prazoFinanciamentoEmAnos, double taxaJurosAnual) {
+    public Financiamento(int codigo, String tipoDoImovel, double valorImovel, int prazoFinanciamentoEmAnos, double taxaJurosAnual) {
         this.codigo = codigo;
+        this.tipoDoImovel = tipoDoImovel;
         this.valorImovel = valorImovel;
         this.prazoFinanciamentoEmAnos = prazoFinanciamentoEmAnos;
         this.taxaJurosAnual = taxaJurosAnual;
@@ -23,6 +25,10 @@ public abstract class Financiamento implements Serializable {
     // getters
     public int getCodigo() {
         return codigo;
+    }
+
+    public String getTipoDoImovel() {
+        return tipoDoImovel;
     }
 
     public double getValorImovel() {
