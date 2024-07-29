@@ -1,19 +1,16 @@
 package Painel;
-/*
-FINANCIAMENTOS SEMPRE ANALISA A POSIÇÃO 0 QUE POSSUI O MESMO VALOR 0 DO i
- */
 
-import modelo.Apartamento;
-import modelo.Casa;
-import modelo.Financiamento;
+import modelo.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 
 public class WindowListar extends JFrame{
+    JComboBox jComboBoxlistaDeFinanciamentos;
     JLabel jLabelTipoImovel;
     JLabel jLabelValorImovel;
     JLabel jLabelPrazoEmAnos;
@@ -24,13 +21,16 @@ public class WindowListar extends JFrame{
     JLabel jLabelAreaConstruida;
     JLabel jLabelTipoDeZona;
     JButton voltar;
-    JComboBox jComboBoxlistaDeFinanciamentos;
+
+    // ArrayList com todos os financiamentos
     ArrayList<Financiamento> financiamentos;
+    ArrayList<Integer> codigos = new ArrayList<>();
 
 
-    WindowListar(ArrayList<Financiamento> f) {
+    WindowListar(ArrayList<Financiamento> financiamentos) {
+        this.financiamentos = financiamentos;
+
         // JFrame para a opção listar
-        this.financiamentos = f;
         setTitle("Financiamentos");
         setSize(300, 500);
         setResizable(false);
@@ -46,9 +46,22 @@ public class WindowListar extends JFrame{
         add(panelInformacoesDoFinanciamento);
 
 
+        // JPanel Botões
+        JPanel panelBotoes = new JPanel();
+        panelBotoes.setBounds(0, 380, 284, 81);
+        panelBotoes.setLayout(new GridLayout(1, 1));
+        add(panelBotoes);
+
+
+        // Loop for para obter todos os códigos de cada financiamento
+        for (Financiamento financiamento :financiamentos)
+            codigos.add(financiamento.getCodigo());
+        // Transforma o ArrayList em um Array normal para poder ser utilizado como parâmetro na criação da comboBox
+        Integer[] codigosArray = codigos.toArray(new Integer[codigos.size()]);
+
+
         // JComboBox Lista de financiamentos já registrados
-        Integer[] codigos = {0, 1, 2, 3, 4};
-        jComboBoxlistaDeFinanciamentos = new JComboBox(codigos);
+        jComboBoxlistaDeFinanciamentos = new JComboBox(codigosArray);
         jComboBoxlistaDeFinanciamentos.setBounds(50,25,190,20);
         jComboBoxlistaDeFinanciamentos.addActionListener(this::visualizarInformacoes);
         panelInformacoesDoFinanciamento.add(jComboBoxlistaDeFinanciamentos);
@@ -106,12 +119,11 @@ public class WindowListar extends JFrame{
 
         // JButton Voltar(retorna para a tela inicial)
         voltar = new JButton("Voltar");
-        voltar.setBounds(125, 381, 150, 70);
-        voltar.setFont(new Font("Arial", Font.BOLD, 40));
+        voltar.setFont(new Font("Arial", Font.BOLD, 25));
         voltar.setForeground(new Color(200, 200, 200));
         voltar.setBackground(new Color(50, 50, 50));
         voltar.addActionListener(this::voltar);
-        add(voltar);
+        panelBotoes.add(voltar);
 
         setVisible(true);
 
@@ -141,24 +153,31 @@ public class WindowListar extends JFrame{
 
                 // Jlabels da classe Apartamento
                 if (financiamento instanceof Apartamento) {
+                    int andares = ((Apartamento) financiamento).getQuantidadeDeAndares();
+                    int vagas = ((Apartamento) financiamento).getQuantidadeDeVagasDoEstacionamento();
                     jLabelQuantidadeDeAndares.setVisible(true);
                     jLabelQuantidadeDeVagasDoEstacionamento.setVisible(true);
-                    jLabelQuantidadeDeAndares.setText("Andares: ");
-                    jLabelQuantidadeDeVagasDoEstacionamento.setText("Vagas: ");
+                    jLabelQuantidadeDeAndares.setText("Andares: " + andares);
+                    jLabelQuantidadeDeVagasDoEstacionamento.setText("Vagas: " + vagas);
                     break;
 
                 //  Jlabels da classe Casa
                 } else if (financiamento instanceof Casa) {
+                    double areaTerreno = ((Casa) financiamento).getAreaTerreno();
+                    double areaConstruida = ((Casa) financiamento).getAreaConstruida();
+
                     jLabelAreaTerreno.setVisible(true);
                     jLabelAreaConstruida.setVisible(true);
-                    jLabelAreaTerreno.setText("Área do terreno: ");
-                    jLabelAreaConstruida.setText("Área construída: ");
+                    jLabelAreaTerreno.setText("Área do terreno: " + areaTerreno);
+                    jLabelAreaConstruida.setText("Área construída: " + areaConstruida);
                     break;
 
                 //  Jlabels da classe Terreno
-                } else {
+                } else if (financiamento instanceof Terreno){
+                    String tipoDeZona = ((Terreno) financiamento).getTipoDeZona();
+
                     jLabelTipoDeZona.setVisible(true);
-                    jLabelTipoDeZona.setText("Tipo de Zona: ");
+                    jLabelTipoDeZona.setText("Tipo de Zona: " + tipoDeZona);
                     break;
                 }
             }
@@ -167,6 +186,11 @@ public class WindowListar extends JFrame{
 
     private void voltar(ActionEvent actionEvent) {
         dispose();
-        new Painel();
+        // Caso não existe financiamento cadastrado o valor do código será redefinido para 0
+        try {
+            new Painel(financiamentos, codigos.getLast() + 1);
+        } catch (NoSuchElementException e) {
+            new Painel(financiamentos, 0);
+        }
     }
 }

@@ -1,6 +1,8 @@
 /*
-Arrumar área construida jlabel
+Checar funcionalidade de todas funções
+Criar função excluír
  */
+
 
 package Painel;
 
@@ -19,30 +21,33 @@ public class Painel extends JFrame {
     JRadioButton apartamentoButton;
     JRadioButton casaButton;
     JRadioButton terrenoButton;
-    JTextField jTextFieldValorImovel;
-    JTextField jTextFieldPrazoEmAnos;
-    JTextField jTextFieldJurosAnual;
     JLabel jLabelQuantidadeDeAndares;
-    JLabel jLabelQuantidadeDeVagasDoEstacionamento;
+    JLabel jLabelQuantidadeDeVagas;
     JLabel jLabelAreaTerreno;
     JLabel jLabelAreaConstruida;
     JLabel jLabelTipoDeZona;
+    JTextField jTextFieldValorImovel;
+    JTextField jTextFieldPrazoEmAnos;
+    JTextField jTextFieldJurosAnual;
     JTextField jTextFieldQuantidadeDeAndares;
     JTextField jTextFieldQuantidadeDeVagas;
     JTextField jTextFieldAreaTerreno;
     JTextField jTextFieldAreaConstruida;
     JComboBox jComboBoxTipoDeZona;
-    JButton salvarFinanciamentos;
+    JButton jButtonSalvar;
     JButton listarFinanciamentos;
     JButton editarFinanciamentos;
     JButton excluirFinanciamentos;
 
     // Variáveis não relacionadas ao JavaSwing
-    int codigo = 0;
-    ArrayList<Financiamento> financiamentos = new ArrayList<>();
+    ArrayList<Financiamento> financiamentos;
+    int codigo;
 
 
-    public Painel() {
+    public Painel(ArrayList<Financiamento> financiamentos, int codigo) {
+        this.financiamentos = financiamentos;
+        this.codigo = codigo;
+
         // JFrame
         setTitle("Financiamentos");
         setSize(700, 600);
@@ -124,15 +129,15 @@ public class Painel extends JFrame {
 
         // JLabel Informações obrigatórias para todos os financiamentos
         JLabel valorImovel = new JLabel("Valor do imóvel:");
-        valorImovel.setBounds(39, 180, 400, 100);
+        valorImovel.setBounds(29, 180, 400, 100);
         valorImovel.setFont(new Font("Arial", Font.BOLD, 20));
 
         JLabel prazoEmAnos = new JLabel("Prazo(em anos):");
-        prazoEmAnos.setBounds(37, 230, 400, 100);
+        prazoEmAnos.setBounds(27, 230, 400, 100);
         prazoEmAnos.setFont(new Font("Arial", Font.BOLD, 20));
 
         JLabel jurosAnual = new JLabel("Juros anual:");
-        jurosAnual.setBounds(74, 280, 400, 100);
+        jurosAnual.setBounds(64, 280, 400, 100);
         jurosAnual.setFont(new Font("Arial", Font.BOLD, 20));
 
         panelInformacoesDoFinanciamento.add(valorImovel);
@@ -142,27 +147,27 @@ public class Painel extends JFrame {
 
         // JLabel Informações específicas de cada imóvel a ser financiado
         jLabelQuantidadeDeAndares = new JLabel("Andares:");
-        jLabelQuantidadeDeAndares.setBounds(107, 330, 400, 100);
+        jLabelQuantidadeDeAndares.setBounds(97, 330, 400, 100);
         jLabelQuantidadeDeAndares.setFont(new Font("Arial", Font.BOLD, 20));
 
-        jLabelQuantidadeDeVagasDoEstacionamento = new JLabel("Vagas:");
-        jLabelQuantidadeDeVagasDoEstacionamento.setBounds(127, 380, 400, 100);
-        jLabelQuantidadeDeVagasDoEstacionamento.setFont(new Font("Arial", Font.BOLD, 20));
+        jLabelQuantidadeDeVagas = new JLabel("Vagas:");
+        jLabelQuantidadeDeVagas.setBounds(117, 380, 400, 100);
+        jLabelQuantidadeDeVagas.setFont(new Font("Arial", Font.BOLD, 20));
 
         jLabelAreaTerreno = new JLabel("Área do terreno:");
-        jLabelAreaTerreno.setBounds(37, 330, 400, 100);
+        jLabelAreaTerreno.setBounds(27, 330, 400, 100);
         jLabelAreaTerreno.setFont(new Font("Arial", Font.BOLD, 20));
 
         jLabelAreaConstruida = new JLabel("Área construída:");
-        jLabelAreaConstruida.setBounds(20, 380, 400, 100);
+        jLabelAreaConstruida.setBounds(25, 380, 400, 100);
         jLabelAreaConstruida.setFont(new Font("Arial", Font.BOLD, 20));
 
         jLabelTipoDeZona = new JLabel("Tipo de Zona:");
-        jLabelTipoDeZona.setBounds(62, 330, 400, 100);
+        jLabelTipoDeZona.setBounds(52, 330, 400, 100);
         jLabelTipoDeZona.setFont(new Font("Arial", Font.BOLD, 20));
 
         panelInformacoesDoFinanciamento.add(jLabelQuantidadeDeAndares);
-        panelInformacoesDoFinanciamento.add(jLabelQuantidadeDeVagasDoEstacionamento);
+        panelInformacoesDoFinanciamento.add(jLabelQuantidadeDeVagas);
         panelInformacoesDoFinanciamento.add(jLabelAreaTerreno);
         panelInformacoesDoFinanciamento.add(jLabelAreaConstruida);
         panelInformacoesDoFinanciamento.add(jLabelTipoDeZona);
@@ -170,15 +175,15 @@ public class Painel extends JFrame {
 
         // JTextField Informações obrigatórias para todos os financiamentos
         jTextFieldValorImovel = new JTextField("50000");
-        jTextFieldValorImovel.setBounds(195,222,110,20);
+        jTextFieldValorImovel.setBounds(185,222,110,20);
         jTextFieldValorImovel.setFont(new Font("Arial", Font.BOLD, 15));
 
         jTextFieldPrazoEmAnos = new JTextField("8");
-        jTextFieldPrazoEmAnos.setBounds(195,272,110,20);
+        jTextFieldPrazoEmAnos.setBounds(185,272,110,20);
         jTextFieldPrazoEmAnos.setFont(new Font("Arial", Font.BOLD, 15));
 
         jTextFieldJurosAnual = new JTextField("8");
-        jTextFieldJurosAnual.setBounds(195,322,110,20);
+        jTextFieldJurosAnual.setBounds(185,322,110,20);
         jTextFieldJurosAnual.setFont(new Font("Arial", Font.BOLD, 15));
 
         panelInformacoesDoFinanciamento.add(jTextFieldValorImovel);
@@ -188,19 +193,19 @@ public class Painel extends JFrame {
 
         // JTextField Informações específicas de cada imóvel a ser financiado
         jTextFieldQuantidadeDeAndares = new JTextField();
-        jTextFieldQuantidadeDeAndares.setBounds(195,372,110,20);
+        jTextFieldQuantidadeDeAndares.setBounds(185,372,110,20);
         jTextFieldQuantidadeDeAndares.setFont(new Font("Arial", Font.BOLD, 15));
 
         jTextFieldQuantidadeDeVagas = new JTextField();
-        jTextFieldQuantidadeDeVagas.setBounds(195,422,110,20);
+        jTextFieldQuantidadeDeVagas.setBounds(185,422,110,20);
         jTextFieldQuantidadeDeVagas.setFont(new Font("Arial", Font.BOLD, 15));
 
         jTextFieldAreaTerreno = new JTextField();
-        jTextFieldAreaTerreno.setBounds(195,372,110,20);
+        jTextFieldAreaTerreno.setBounds(185,372,110,20);
         jTextFieldAreaTerreno.setFont(new Font("Arial", Font.BOLD, 15));
 
         jTextFieldAreaConstruida = new JTextField();
-        jTextFieldAreaConstruida.setBounds(195,422,110,20);
+        jTextFieldAreaConstruida.setBounds(185,422,110,20);
         jTextFieldAreaConstruida.setFont(new Font("Arial", Font.BOLD, 15));
 
 
@@ -213,18 +218,18 @@ public class Painel extends JFrame {
         // JComboBox Tipo de zona do terreno
         String[] zonas = {"Residencial", "Comercial"};
         jComboBoxTipoDeZona = new JComboBox(zonas);
-        jComboBoxTipoDeZona.setBounds(195,372,110,20);
+        jComboBoxTipoDeZona.setBounds(185,372,110,20);
         panelInformacoesDoFinanciamento.add(jComboBoxTipoDeZona);
 
 
         // JButton Salvar(cria um financiamento)
-        salvarFinanciamentos = new JButton("Salvar");
-        salvarFinanciamentos.setBounds(27, 30, 300, 70);
-        salvarFinanciamentos.setFont(new Font("Arial", Font.BOLD, 40));
-        salvarFinanciamentos.setForeground(new Color(200, 200, 200));
-        salvarFinanciamentos.setBackground(new Color(50, 50, 50));
-        salvarFinanciamentos.addActionListener(this::criarFinanciamentos);
-        panelAcoesUsuario.add(salvarFinanciamentos);
+        jButtonSalvar = new JButton("Salvar");
+        jButtonSalvar.setBounds(27, 30, 300, 70);
+        jButtonSalvar.setFont(new Font("Arial", Font.BOLD, 40));
+        jButtonSalvar.setForeground(new Color(200, 200, 200));
+        jButtonSalvar.setBackground(new Color(50, 50, 50));
+        jButtonSalvar.addActionListener(this::criarFinanciamentos);
+        panelAcoesUsuario.add(jButtonSalvar);
 
 
         // JButton Listar(lista todos os financiamentos)
@@ -262,7 +267,7 @@ public class Painel extends JFrame {
 
         // Deixando as JLabels/JTextFields/JComboBox específicos invisíveis
         jLabelQuantidadeDeAndares.setVisible(false);
-        jLabelQuantidadeDeVagasDoEstacionamento.setVisible(false);
+        jLabelQuantidadeDeVagas.setVisible(false);
         jLabelAreaTerreno.setVisible(false);
         jLabelAreaConstruida.setVisible(false);
         jLabelTipoDeZona.setVisible(false);
@@ -279,7 +284,7 @@ public class Painel extends JFrame {
     public void escolherTipoDoImovel(ActionEvent e) {
         // Deixando as JLabels/JTextFields/JComboBox específicos invisíveis
         jLabelQuantidadeDeAndares.setVisible(false);
-        jLabelQuantidadeDeVagasDoEstacionamento.setVisible(false);
+        jLabelQuantidadeDeVagas.setVisible(false);
         jLabelAreaTerreno.setVisible(false);
         jLabelAreaConstruida.setVisible(false);
         jLabelTipoDeZona.setVisible(false);
@@ -293,7 +298,7 @@ public class Painel extends JFrame {
         // Controlando a visibilidade de valores específicos
         if (e.getSource() == apartamentoButton) {
             jLabelQuantidadeDeAndares.setVisible(true);
-            jLabelQuantidadeDeVagasDoEstacionamento.setVisible(true);
+            jLabelQuantidadeDeVagas.setVisible(true);
             jTextFieldQuantidadeDeAndares.setVisible(true);
             jTextFieldQuantidadeDeVagas.setVisible(true);
         } else if (e.getSource() == casaButton) {
@@ -395,16 +400,20 @@ public class Painel extends JFrame {
     // JButton Listar
     private void listarFinanciamentos(ActionEvent actionEvent) {
         dispose();
-        WindowListar listar = new WindowListar(financiamentos);
+        new WindowListar(financiamentos);
     }
 
 
     // JButton Editar
     private void editarFinanciamentos(ActionEvent actionEvent) {
+        dispose();
+        new WindowEditar(financiamentos);
     }
 
 
     // JButton excluir
     private void excluirFinanciamentos(ActionEvent actionEvent) {
+        dispose();
+        new WindowExcluir(financiamentos);
     }
 }

@@ -13,6 +13,26 @@ public class Casa extends Financiamento{
         this.areaConstruida = areaConstruida;
     }
 
+
+    // getters
+    public double getAreaTerreno() {
+        return areaTerreno;
+    }
+
+    public double getAreaConstruida() {
+        return areaConstruida;
+    }
+
+
+    // setters
+    public void setAreaTerreno(double areaTerreno) {
+        this.areaTerreno = areaTerreno;
+    }
+
+    public void setAreaConstruida(double areaConstruida) {
+        this.areaConstruida = areaConstruida;
+    }
+
     // Acréscimo de no máximo R$80,00 em cada parcela, porém o acréscimo não pode ser superior aos juros da parcela.
     public double calcularPagamentoMensal() {
         // Cálculo do pagamento mensal com juros porém sem o acréscimo.
@@ -30,11 +50,13 @@ public class Casa extends Financiamento{
         }
     }
 
+
     public void mostrarInformacoes() {
         super.mostrarInformacoes();
         System.out.printf("Área construída: %.2f metros quadrados\nÁrea do Terreno: %.2f metros quadrados\n",
                 this.areaConstruida, this.areaTerreno);
     }
+
 
     public String toString() {
         return "Valor do imóvel: " + this.getValorImovel() + "\n" +

@@ -11,6 +11,7 @@ public class Apartamento extends Financiamento{
         this.quantidadeDeVagasDoEstacionamento = quantidadeDeVagasDoEstacionamento;
     }
 
+
     // getters
     public int getQuantidadeDeAndares() {
         return quantidadeDeAndares;
@@ -18,6 +19,16 @@ public class Apartamento extends Financiamento{
 
     public int getQuantidadeDeVagasDoEstacionamento() {
         return quantidadeDeVagasDoEstacionamento;
+    }
+
+
+    // setters
+    public void setQuantidadeDeAndares(int quantidadeDeAndares) {
+        this.quantidadeDeAndares = quantidadeDeAndares;
+    }
+
+    public void setQuantidadeDeVagasDoEstacionamento(int quantidadeDeVagasDoEstacionamento) {
+        this.quantidadeDeVagasDoEstacionamento = quantidadeDeVagasDoEstacionamento;
     }
 
     // Método PRICE
