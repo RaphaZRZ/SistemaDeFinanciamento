@@ -2,9 +2,9 @@
 Arrumar JComboBox editar, item sempre em residencial
  */
 
-package Painel;
+package painel;
 
-import Exceptions.*;
+import exceptions.*;
 import modelo.Apartamento;
 import modelo.Casa;
 import modelo.Financiamento;
@@ -276,7 +276,7 @@ public class WindowEditar extends JFrame {
     // JButton Voltar
     private void voltar(ActionEvent actionEvent) {
         dispose();
-        // Caso não existe financiamento cadastrado o valor do código será redefinido para 0
+        // Caso não exista financiamento cadastrado o valor do código será redefinido para 0
         try {
             new Painel(financiamentos, codigos.getLast() + 1);
         } catch (NoSuchElementException e) {

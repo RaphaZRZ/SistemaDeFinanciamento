@@ -4,9 +4,9 @@ Criar função excluír
  */
 
 
-package Painel;
+package painel;
 
-import Exceptions.*;
+import exceptions.*;
 import modelo.*;
 import util.ValidarValores;
 

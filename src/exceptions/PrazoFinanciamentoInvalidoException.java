@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class PrazoFinanciamentoInvalidoException extends Exception{
     public PrazoFinanciamentoInvalidoException(String msg) {

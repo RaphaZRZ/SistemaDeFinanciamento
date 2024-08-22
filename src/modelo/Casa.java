@@ -1,6 +1,6 @@
 package modelo;
 
-import Exceptions.AcrescimoMaiorQueJurosException;
+import exceptions.AcrescimoMaiorQueJurosException;
 
 
 public class Casa extends Financiamento{

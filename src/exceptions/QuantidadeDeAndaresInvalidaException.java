@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class QuantidadeDeAndaresInvalidaException extends Exception{
     public QuantidadeDeAndaresInvalidaException(String msg) {

@@ -1,6 +1,6 @@
 package util;
 
-import Exceptions.*;
+import exceptions.*;
 
 
 public class ValidarValores {
