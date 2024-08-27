@@ -15,19 +15,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
-public class WindowEditar extends JFrame {
+public class WindowEditar extends WindowGeral {
     JComboBox jComboBoxlistaDeFinanciamentos;
-    JLabel jLabelTipoImovel;
-    JLabel jLabelValorImovel;
-    JLabel jLabelPrazoEmAnos;
-    JLabel jLabelJurosAnual;
-    JLabel jLabelQuantidadeDeAndares;
-    JLabel jLabelQuantidadeDeVagas;
-    JLabel jLabelAreaTerreno;
-    JLabel jLabelAreaConstruida;
-    JLabel jLabelTipoDeZona;
     JTextField jTextFieldValorImovel;
     JTextField jTextFieldPrazoEmAnos;
     JTextField jTextFieldJurosAnual;
@@ -36,44 +26,12 @@ public class WindowEditar extends JFrame {
     JTextField jTextFieldAreaTerreno;
     JTextField jTextFieldAreaConstruida;
     JComboBox jComboBoxTipoDeZona;
-    JButton jButtonVoltar;
     JButton jButtonAtualizar;
 
-    // ArrayList com todos os financiamentos
-    ArrayList<Financiamento> financiamentos;
-    ArrayList<Integer> codigos = new ArrayList<>();
 
-    WindowEditar(ArrayList<Financiamento> financiamentos) {
+    WindowEditar(ArrayList<Financiamento> financiamentos, int colunas) {
+        super(financiamentos, colunas);
         this.financiamentos = financiamentos;
-
-        // JFrame para a opção listar
-        setTitle("Financiamentos");
-        setSize(300, 500);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setLayout(null);
-
-
-        // JPanel InformacoesDoFinanciamento
-        JPanel panelInformacoesDoFinanciamento = new JPanel();
-        panelInformacoesDoFinanciamento.setBounds(0, 0, 300, 380);
-        panelInformacoesDoFinanciamento.setBackground(new Color(127, 127, 127));
-        panelInformacoesDoFinanciamento.setLayout(null);
-        add(panelInformacoesDoFinanciamento);
-
-
-        // JPanel Botões
-        JPanel panelBotoes = new JPanel();
-        panelBotoes.setBounds(0, 380, 284, 81);
-        panelBotoes.setLayout(new GridLayout(1, 2));
-        add(panelBotoes);
-
-
-        // Loop for para obter todos os códigos de cada financiamento
-        for (Financiamento financiamento :financiamentos)
-            codigos.add(financiamento.getCodigo());
-        // Transforma o ArrayList em um Array normal para poder ser utilizado como parâmetro na criação da comboBox
-        Integer[] codigosArray = codigos.toArray(new Integer[codigos.size()]);
 
 
         // JComboBox Lista de financiamentos já registrados
@@ -81,57 +39,6 @@ public class WindowEditar extends JFrame {
         jComboBoxlistaDeFinanciamentos.setBounds(50,25,190,20);
         jComboBoxlistaDeFinanciamentos.addActionListener(this::visualizarInformacoes);
         panelInformacoesDoFinanciamento.add(jComboBoxlistaDeFinanciamentos);
-
-
-        // JLabel Informações obrigatórias para todos os financiamentos
-        jLabelTipoImovel = new JLabel("Tipo do imóvel:");
-        jLabelTipoImovel.setBounds(21, 40, 400, 100);
-        jLabelTipoImovel.setFont(new Font("Arial", Font.ITALIC, 20));
-
-        jLabelValorImovel = new JLabel("Valor do imóvel:");
-        jLabelValorImovel.setBounds(13, 90, 400, 100);
-        jLabelValorImovel.setFont(new Font("Arial", Font.ITALIC, 20));
-
-        jLabelPrazoEmAnos = new JLabel("Prazo(em anos):");
-        jLabelPrazoEmAnos.setBounds(10, 140, 400, 100);
-        jLabelPrazoEmAnos.setFont(new Font("Arial", Font.ITALIC, 20));
-
-        jLabelJurosAnual = new JLabel("Juros anual:");
-        jLabelJurosAnual.setBounds(49, 190, 400, 100);
-        jLabelJurosAnual.setFont(new Font("Arial", Font.ITALIC, 20));
-
-        panelInformacoesDoFinanciamento.add(jLabelTipoImovel);
-        panelInformacoesDoFinanciamento.add(jLabelValorImovel);
-        panelInformacoesDoFinanciamento.add(jLabelPrazoEmAnos);
-        panelInformacoesDoFinanciamento.add(jLabelJurosAnual);
-
-
-        // JLabel Informações específicas de cada imóvel financiado
-        jLabelQuantidadeDeAndares = new JLabel("Andares: ");
-        jLabelQuantidadeDeAndares.setBounds(79, 240, 400, 100);
-        jLabelQuantidadeDeAndares.setFont(new Font("Arial", Font.ITALIC, 20));
-
-        jLabelQuantidadeDeVagas = new JLabel("Vagas: ");
-        jLabelQuantidadeDeVagas.setBounds(97, 290, 400, 100);
-        jLabelQuantidadeDeVagas.setFont(new Font("Arial", Font.ITALIC, 20));
-
-        jLabelAreaTerreno = new JLabel("Área do terreno: ");
-        jLabelAreaTerreno.setBounds(14, 240, 400, 100);
-        jLabelAreaTerreno.setFont(new Font("Arial", Font.ITALIC, 20));
-
-        jLabelAreaConstruida = new JLabel("Área construída: ");
-        jLabelAreaConstruida.setBounds(13, 290, 400, 100);
-        jLabelAreaConstruida.setFont(new Font("Arial", Font.ITALIC, 20));
-
-        jLabelTipoDeZona = new JLabel("Tipo de Zona: ");
-        jLabelTipoDeZona.setBounds(35, 240, 400, 100);
-        jLabelTipoDeZona.setFont(new Font("Arial", Font.ITALIC, 20));
-
-        panelInformacoesDoFinanciamento.add(jLabelQuantidadeDeAndares);
-        panelInformacoesDoFinanciamento.add(jLabelQuantidadeDeVagas);
-        panelInformacoesDoFinanciamento.add(jLabelAreaTerreno);
-        panelInformacoesDoFinanciamento.add(jLabelAreaConstruida);
-        panelInformacoesDoFinanciamento.add(jLabelTipoDeZona);
 
 
         // JTextField Informações obrigatórias de cada imóvel financiado
@@ -183,15 +90,6 @@ public class WindowEditar extends JFrame {
         panelInformacoesDoFinanciamento.add(jComboBoxTipoDeZona);
 
 
-        // JButton Voltar(retorna para a tela inicial)
-        jButtonVoltar = new JButton("Voltar");
-        jButtonVoltar.setFont(new Font("Arial", Font.BOLD, 25));
-        jButtonVoltar.setForeground(new Color(200, 200, 200));
-        jButtonVoltar.setBackground(new Color(50, 50, 50));
-        jButtonVoltar.addActionListener(this::voltar);
-        panelBotoes.add(jButtonVoltar);
-
-
         // JButton Salvar(atualiza os valores do financiamento)
         jButtonAtualizar = new JButton("Atualizar");
         jButtonAtualizar.setFont(new Font("Arial", Font.BOLD, 25));
@@ -200,16 +98,11 @@ public class WindowEditar extends JFrame {
         jButtonAtualizar.addActionListener(this::atualizarFinanciamentos);
         panelBotoes.add(jButtonAtualizar);
 
+
         setVisible(true);
 
 
-        // Deixando as JLabels/JTextFields/JComboBox específicos invisíveis
-        jLabelQuantidadeDeAndares.setVisible(false);
-        jLabelQuantidadeDeVagas.setVisible(false);
-        jLabelAreaTerreno.setVisible(false);
-        jLabelAreaConstruida.setVisible(false);
-        jLabelTipoDeZona.setVisible(false);
-
+        // Deixando os JTextFields e JComboBox específicos invisíveis
         jTextFieldQuantidadeDeAndares.setVisible(false);
         jTextFieldQuantidadeDeVagas.setVisible(false);
         jTextFieldAreaTerreno.setVisible(false);
@@ -221,7 +114,7 @@ public class WindowEditar extends JFrame {
     private void visualizarInformacoes(ActionEvent actionEvent) {
         // Controlando a visibilidade de valores específicos
         jLabelQuantidadeDeAndares.setVisible(false);
-        jLabelQuantidadeDeVagas.setVisible(false);
+        jLabelQuantidadeDeVagasDoEstacionamento.setVisible(false);
         jLabelAreaTerreno.setVisible(false);
         jLabelAreaConstruida.setVisible(false);
         jLabelTipoDeZona.setVisible(false);
@@ -232,6 +125,10 @@ public class WindowEditar extends JFrame {
         jTextFieldAreaConstruida.setVisible(false);
         jComboBoxTipoDeZona.setVisible(false);
 
+        /*
+        Varre o ArrayList de financiamentos para encontrar o financiamento que possui o código identico ao informado pelo usuário,
+        em seguida mostra todas as informações pertinentes controlando a visibilidade de cada JLabel.
+         */
         for (Financiamento financiamento : financiamentos) {
             if ((int) jComboBoxlistaDeFinanciamentos.getSelectedItem() == financiamento.getCodigo()) {
                 jLabelTipoImovel.setText("Tipo do imóvel: " + financiamento.getTipoDoImovel());
@@ -246,7 +143,7 @@ public class WindowEditar extends JFrame {
 
 
                     jLabelQuantidadeDeAndares.setVisible(true);
-                    jLabelQuantidadeDeVagas.setVisible(true);
+                    jLabelQuantidadeDeVagasDoEstacionamento.setVisible(true);
                     jTextFieldQuantidadeDeAndares.setVisible(true);
                     jTextFieldQuantidadeDeVagas.setVisible(true);
                     break;
@@ -269,18 +166,6 @@ public class WindowEditar extends JFrame {
                     break;
                 }
             }
-        }
-    }
-
-
-    // JButton Voltar
-    private void voltar(ActionEvent actionEvent) {
-        dispose();
-        // Caso não exista financiamento cadastrado o valor do código será redefinido para 0
-        try {
-            new Painel(financiamentos, codigos.getLast() + 1);
-        } catch (NoSuchElementException e) {
-            new Painel(financiamentos, 0);
         }
     }
 

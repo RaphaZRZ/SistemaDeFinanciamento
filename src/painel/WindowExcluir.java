@@ -3,19 +3,26 @@ package painel;
 import modelo.Financiamento;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class WindowExcluir extends WindowListar{
+public class WindowExcluir extends WindowListar {
     JButton jButtonExcluir;
 
+    /*
+    Utiliza o painel da classe WindowListar para criar seu próprio painel, porém com duas colunas
+    */
     public WindowExcluir(ArrayList<Financiamento> financiamentos) {
-        super(financiamentos);
+        super(financiamentos, 2);
 
         jButtonExcluir = new JButton("Excluir");
-        jButtonExcluir.setBounds(0, 100, 100, 100);
-        add(jButtonExcluir);
+        jButtonExcluir.setFont(new Font("Arial", Font.BOLD, 25));
+        jButtonExcluir.setForeground(new Color(200, 200, 200));
+        jButtonExcluir.setBackground(new Color(50, 50, 50));
         jButtonExcluir.addActionListener(this::excluir);
+        panelBotoes.add(jButtonExcluir);
+
         setVisible(true);
 
     }

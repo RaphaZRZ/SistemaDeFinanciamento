@@ -39,11 +39,17 @@ public class Painel extends JFrame {
     JButton editarFinanciamentos;
     JButton excluirFinanciamentos;
 
-    // Variáveis não relacionadas ao JavaSwing
+    /*
+    ArrayList financiamentos é utilizado para transitar os dados de cada financiamento registrado entre diferentes Classes.
+    Código também interage com outras classes.
+     */
     ArrayList<Financiamento> financiamentos;
     int codigo;
 
 
+    /*
+    Criação da interface gráfica principal, com as operações CRUD.
+     */
     public Painel(ArrayList<Financiamento> financiamentos, int codigo) {
         this.financiamentos = financiamentos;
         this.codigo = codigo;
@@ -314,6 +320,9 @@ public class Painel extends JFrame {
 
 
     // JButtom Salvar
+    /*
+    Válida se todos os dados estão corretos antes de salvar o financiamento no ArrayList Financiamentos.
+     */
     public void criarFinanciamentos(ActionEvent actionEvent) {
         try {
             // Valores obrigatórias
@@ -400,14 +409,15 @@ public class Painel extends JFrame {
     // JButton Listar
     private void listarFinanciamentos(ActionEvent actionEvent) {
         dispose();
-        new WindowListar(financiamentos);
+        // O número de colunas é necessário para fazer o encaixe do segundo botão na função excluir
+        new WindowListar(financiamentos, 1);
     }
 
 
     // JButton Editar
     private void editarFinanciamentos(ActionEvent actionEvent) {
         dispose();
-        new WindowEditar(financiamentos);
+        new WindowEditar(financiamentos, 2);
     }
 
 

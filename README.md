@@ -6,12 +6,15 @@ Sistema que valida várias regras de negócio para criar um financiamento corret
 
 ## Sobre o código:
 - `\src\main` Contém o ArrayList de financiamentos, também inicia a janela criada pelo java.swing.
-- `\src\painel` Contém todo o código para que cada botão funcione corretamente.
+- `\src\painel` Contém todo código para que cada botão e janela funcione corretamente.
 - `\src\modelo` Contém a classe Financiamento e suas especializações.
 - `\scr\util` Contém as regras de negócio para validar cada financiamento.
 - `\src\exceptions` Contém todas as exceções do código, geralmente relacionadas às regras de negócio.
 
 ## Atualizações:
+*27/08/2024:* Criação da Classe WindowGeral(sendo a classe pais das classes WindowListar/WindowEditar/WindowExcluir).
+              Começo da otimização do código.
+
 *21/08/2024:* Documentação do processo para facilitar a criação de atualizações futuras.
 
 *31/07/2024:* Implementação do botão excluir(arrumar posição do botão).

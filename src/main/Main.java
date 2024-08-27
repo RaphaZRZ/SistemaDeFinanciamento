@@ -13,9 +13,6 @@ public class Main {
     public static void main(String[] args) {
         // Criação do ArrayList para salvar os dados de cada financiamento
         ArrayList<Financiamento> financiamentos = new ArrayList<>();
-        // Codigo de acesso para cada financiamento
-        int codigo = 0;
-
-        new Painel(financiamentos, codigo);
+        new Painel(financiamentos, 0);
     }
 }
