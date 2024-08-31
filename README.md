@@ -12,6 +12,9 @@ Sistema que valida várias regras de negócio para criar um financiamento corret
 - `\src\exceptions` Contém todas as exceções do código, geralmente relacionadas às regras de negócio.
 
 ## Atualizações:
+*30/08/2024:* Encapsulamento aprimorado da classe ValidarValores. 
+Começo da implementação de métodos capazes de validar todas as informações de determinado tipo de financiamento.
+
 *27/08/2024:* Criação da Classe WindowGeral(sendo a classe pais das classes WindowListar/WindowEditar/WindowExcluir).
               Começo da otimização do código.
 

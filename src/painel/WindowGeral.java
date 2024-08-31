@@ -137,7 +137,7 @@ public class WindowGeral extends JFrame {
         try {
             new Painel(financiamentos, codigos.getLast() + 1);
 
-            // Caso não exista financiamento cadastrad, o valor do código será redefinido para 0
+            // Caso não exista financiamento cadastrado, o valor do código será redefinido para 0
         } catch (NoSuchElementException e) {
             new Painel(financiamentos, 0);
         }
