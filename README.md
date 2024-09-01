@@ -12,6 +12,9 @@ Sistema que valida várias regras de negócio para criar um financiamento corret
 - `\src\exceptions` Contém todas as exceções do código, geralmente relacionadas às regras de negócio.
 
 ## Atualizações:
+*01/09/2024:* Substituição de if/else para Switch/case.
+Finzalização da implementação dos métodos validadores com a utilização de uma variável de controle.
+
 *30/08/2024:* Encapsulamento aprimorado da classe ValidarValores. 
 Começo da implementação de métodos capazes de validar todas as informações de determinado tipo de financiamento.
 

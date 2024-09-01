@@ -14,6 +14,8 @@ Essa classe define o tamanho da janela para as funções listar/editar/excluir.
 Recebe como argumento a quantidade de colunas(preenchidas por botões), geralmente entre 1 e 2.
  */
 public class WindowGeral extends JFrame {
+    ImageIcon rightPNG = new ImageIcon(getClass().getResource("right.png"));
+
     JPanel panelInformacoesDoFinanciamento;
     JPanel panelBotoes;
     JLabel jLabelTipoImovel;
@@ -137,7 +139,6 @@ public class WindowGeral extends JFrame {
         try {
             new Painel(financiamentos, codigos.getLast() + 1);
 
-            // Caso não exista financiamento cadastrado, o valor do código será redefinido para 0
         } catch (NoSuchElementException e) {
             new Painel(financiamentos, 0);
         }

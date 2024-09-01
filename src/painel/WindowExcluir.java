@@ -31,9 +31,8 @@ public class WindowExcluir extends WindowListar {
         for (int i = 0; i < financiamentos.size(); i++) {
             if ((int) jComboBoxlistaDeFinanciamentos.getSelectedItem() == financiamentos.get(i).getCodigo()) {
                 financiamentos.remove(financiamentos.get(i));
-                ImageIcon icon = new ImageIcon("C:\\Users\\rapha\\OneDrive\\Desktop\\PUCPR\\Repositórios\\SistemaDeFinanciamento\\src\\Painel\\right.png");
                 JOptionPane.showMessageDialog(null, "Informações excluídas.",
-                        "Financiamento Excluído", JOptionPane.INFORMATION_MESSAGE, icon);
+                        "Financiamento Excluído", JOptionPane.INFORMATION_MESSAGE, rightPNG);
                 dispose();
                 new WindowExcluir(financiamentos);
                 break;

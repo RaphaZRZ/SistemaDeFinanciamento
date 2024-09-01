@@ -4,7 +4,6 @@ Arrumar JComboBox editar, item sempre em residencial
 
 package painel;
 
-import exceptions.*;
 import modelo.Apartamento;
 import modelo.Casa;
 import modelo.Financiamento;
@@ -17,7 +16,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class WindowEditar extends WindowGeral {
-    JComboBox jComboBoxlistaDeFinanciamentos;
+    JComboBox<Integer> jComboBoxListaDeFinanciamentos;
     JTextField jTextFieldValorImovel;
     JTextField jTextFieldPrazoEmAnos;
     JTextField jTextFieldJurosAnual;
@@ -25,7 +24,7 @@ public class WindowEditar extends WindowGeral {
     JTextField jTextFieldQuantidadeDeVagas;
     JTextField jTextFieldAreaTerreno;
     JTextField jTextFieldAreaConstruida;
-    JComboBox jComboBoxTipoDeZona;
+    JComboBox<String> jComboBoxTipoDeZona;
     JButton jButtonAtualizar;
 
 
@@ -35,10 +34,10 @@ public class WindowEditar extends WindowGeral {
 
 
         // JComboBox Lista de financiamentos já registrados
-        jComboBoxlistaDeFinanciamentos = new JComboBox(codigosArray);
-        jComboBoxlistaDeFinanciamentos.setBounds(50,25,190,20);
-        jComboBoxlistaDeFinanciamentos.addActionListener(this::editarInformacoes);
-        panelInformacoesDoFinanciamento.add(jComboBoxlistaDeFinanciamentos);
+        jComboBoxListaDeFinanciamentos = new JComboBox<>(codigosArray);
+        jComboBoxListaDeFinanciamentos.setBounds(50,25,190,20);
+        jComboBoxListaDeFinanciamentos.addActionListener(this::visualizarInformacoes);
+        panelInformacoesDoFinanciamento.add(jComboBoxListaDeFinanciamentos);
 
 
         // JTextField Informações obrigatórias de cada imóvel financiado
@@ -85,7 +84,7 @@ public class WindowEditar extends WindowGeral {
 
         // JComboBox Tipo de zona do terreno
         String[] zonas = {"Residencial", "Comercial"};
-        jComboBoxTipoDeZona = new JComboBox(zonas);
+        jComboBoxTipoDeZona = new JComboBox<>(zonas);
         jComboBoxTipoDeZona.setBounds(165,281,110,20);
         panelInformacoesDoFinanciamento.add(jComboBoxTipoDeZona);
 
@@ -111,7 +110,7 @@ public class WindowEditar extends WindowGeral {
     }
 
 
-    private void editarInformacoes(ActionEvent actionEvent) {
+    private void visualizarInformacoes(ActionEvent actionEvent) {
         // Controlando a visibilidade de valores específicos
         jLabelQuantidadeDeAndares.setVisible(false);
         jLabelQuantidadeDeVagasDoEstacionamento.setVisible(false);
@@ -129,41 +128,46 @@ public class WindowEditar extends WindowGeral {
         Varre o ArrayList de financiamentos para encontrar o financiamento que possui o código identico ao informado pelo usuário,
         em seguida mostra todas as informações pertinentes controlando a visibilidade de cada JLabel.
          */
+
         for (Financiamento financiamento : financiamentos) {
-            if ((int) jComboBoxlistaDeFinanciamentos.getSelectedItem() == financiamento.getCodigo()) {
+            if ((int) jComboBoxListaDeFinanciamentos.getSelectedItem() == financiamento.getCodigo()) {
                 jLabelTipoImovel.setText("Tipo do imóvel: " + financiamento.getTipoDoImovel());
                 jTextFieldValorImovel.setText(Double.toString(financiamento.getValorImovel()));
                 jTextFieldPrazoEmAnos.setText(Integer.toString(financiamento.getPrazoFinanciamentoEmAnos()));
                 jTextFieldJurosAnual.setText(Double.toString(financiamento.getTaxaJurosAnual()));
 
                 // Jlabels e JTextFields da classe Apartamento
-                if (financiamento instanceof Apartamento) {
-                    jTextFieldQuantidadeDeAndares.setText(Integer.toString(((Apartamento) financiamento).getQuantidadeDeAndares()));
-                    jTextFieldQuantidadeDeVagas.setText(Integer.toString(((Apartamento) financiamento).getQuantidadeDeVagasDoEstacionamento()));
+                switch (financiamento) {
+                    case Apartamento apartamento:
+                        jTextFieldQuantidadeDeAndares.setText(Integer.toString(apartamento.getQuantidadeDeAndares()));
+                        jTextFieldQuantidadeDeVagas.setText(Integer.toString(apartamento.getQuantidadeDeVagasDoEstacionamento()));
 
 
-                    jLabelQuantidadeDeAndares.setVisible(true);
-                    jLabelQuantidadeDeVagasDoEstacionamento.setVisible(true);
-                    jTextFieldQuantidadeDeAndares.setVisible(true);
-                    jTextFieldQuantidadeDeVagas.setVisible(true);
-                    break;
+                        jLabelQuantidadeDeAndares.setVisible(true);
+                        jLabelQuantidadeDeVagasDoEstacionamento.setVisible(true);
+                        jTextFieldQuantidadeDeAndares.setVisible(true);
+                        jTextFieldQuantidadeDeVagas.setVisible(true);
+                        break;
 
-                // Jlabels e JTextFields da classe Casa
-                } else if (financiamento instanceof Casa) {
-                    jTextFieldAreaTerreno.setText(Double.toString(((Casa) financiamento).getAreaTerreno()));
-                    jTextFieldAreaConstruida.setText(Double.toString(((Casa) financiamento).getAreaConstruida()));
+                    // Jlabels e JTextFields da classe Casa
+                    case Casa casa:
+                        jTextFieldAreaTerreno.setText(Double.toString(casa.getAreaTerreno()));
+                        jTextFieldAreaConstruida.setText(Double.toString(casa.getAreaConstruida()));
 
-                    jLabelAreaTerreno.setVisible(true);
-                    jLabelAreaConstruida.setVisible(true);
-                    jTextFieldAreaTerreno.setVisible(true);
-                    jTextFieldAreaConstruida.setVisible(true);
-                    break;
+                        jLabelAreaTerreno.setVisible(true);
+                        jLabelAreaConstruida.setVisible(true);
+                        jTextFieldAreaTerreno.setVisible(true);
+                        jTextFieldAreaConstruida.setVisible(true);
+                        break;
 
-                // Jlabels e JTextFields da classe Terreno
-                } else if (financiamento instanceof Terreno){
-                    jLabelTipoDeZona.setVisible(true);
-                    jComboBoxTipoDeZona.setVisible(true);
-                    break;
+                    // Jlabels e JTextFields da classe Terreno
+                    case Terreno _:
+                        jLabelTipoDeZona.setVisible(true);
+                        jComboBoxTipoDeZona.setVisible(true);
+                        break;
+
+                    default:
+                        break;
                 }
             }
         }
@@ -173,53 +177,60 @@ public class WindowEditar extends WindowGeral {
     // JButton Atualizar
     private void atualizarFinanciamentos(ActionEvent actionEvent) {
         for (Financiamento financiamento : financiamentos) {
-            if ((int) jComboBoxlistaDeFinanciamentos.getSelectedItem() == financiamento.getCodigo()) {
+            if ((int) jComboBoxListaDeFinanciamentos.getSelectedItem() == financiamento.getCodigo()) {
                 try {
+                    int controle = 0;
+
                     // Valida os valores obrigatórios alterados
                     float valorImovel = Float.parseFloat(jTextFieldValorImovel.getText());
                     int prazoFinanciamento = Integer.parseInt(jTextFieldPrazoEmAnos.getText());
                     float jurosAnual = Float.parseFloat(jTextFieldJurosAnual.getText());
 
                     if (ValidarValores.financiamentoGeral(valorImovel, prazoFinanciamento, jurosAnual)) {
-                        // Valida os valores obrigatórios alterados
-                        if (financiamento instanceof Apartamento) {
-                            int quantidadeDeAndares = Integer.parseInt(jTextFieldQuantidadeDeAndares.getText());
-                            int quantidadeDeVagas = Integer.parseInt((jTextFieldQuantidadeDeVagas.getText()));
+                        switch (financiamento) {
+                            case Apartamento apartamento -> {
+                                int quantidadeDeAndares = Integer.parseInt(jTextFieldQuantidadeDeAndares.getText());
+                                int quantidadeDeVagas = Integer.parseInt((jTextFieldQuantidadeDeVagas.getText()));
 
-                            if (ValidarValores.apartamento(quantidadeDeAndares, quantidadeDeVagas)) {
-                                ((Apartamento) financiamento).setQuantidadeDeAndares(quantidadeDeAndares);
-                                ((Apartamento) financiamento).setQuantidadeDeVagasDoEstacionamento(quantidadeDeVagas);
+                                if (ValidarValores.apartamento(quantidadeDeAndares, quantidadeDeVagas)) {
+                                    apartamento.setQuantidadeDeAndares(quantidadeDeAndares);
+                                    apartamento.setQuantidadeDeVagasDoEstacionamento(quantidadeDeVagas);
+                                    controle = 1;
+                                }
                             }
 
-                        } else if (financiamento instanceof Casa) {
-                            double areaTerreno = Double.parseDouble(jTextFieldAreaTerreno.getText());
-                            double areaConstruida = Double.parseDouble(jTextFieldAreaConstruida.getText());
+                            case Casa casa -> {
+                                double areaTerreno = Double.parseDouble(jTextFieldAreaTerreno.getText());
+                                double areaConstruida = Double.parseDouble(jTextFieldAreaConstruida.getText());
 
-                            if (ValidarValores.casa(areaTerreno, areaConstruida)) {
-                                ((Casa) financiamento).setAreaTerreno(areaTerreno);
-                                ((Casa) financiamento).setAreaConstruida(areaConstruida);
+                                if (ValidarValores.casa(areaTerreno, areaConstruida)) {
+                                    casa.setAreaTerreno(areaTerreno);
+                                    casa.setAreaConstruida(areaConstruida);
+                                    controle = 1;
+                                }
                             }
 
-                        } else if (financiamento instanceof Terreno) {
-                            String tipoDeZona = (String) jComboBoxTipoDeZona.getSelectedItem();
+                            case Terreno terreno -> {
+                                String tipoDeZona = (String) jComboBoxTipoDeZona.getSelectedItem();
 
-                            ((Terreno) financiamento).setTipoDeZona(tipoDeZona);
+                                terreno.setTipoDeZona(tipoDeZona);
+                                controle = 1;
+                            }
+
+                            default -> {
+                            }
                         }
 
                         financiamento.setValorImovel(valorImovel);
                         financiamento.setPrazoFinanciamentoEmAnos(prazoFinanciamento);
                         financiamento.setTaxaJurosAnual(jurosAnual);
 
-                        /*
-                        arrumar
-                         */
-                        ImageIcon icon = new ImageIcon("C:\\Users\\rapha\\OneDrive\\Desktop\\PUCPR\\Repositórios\\SistemaDeFinanciamento\\src\\Painel\\right.png");
-                        JOptionPane.showMessageDialog(null, "Informações atualizadas.",
-                                "Financiamento Atualizado", JOptionPane.INFORMATION_MESSAGE, icon);
+                        if (controle == 1) {
+                            JOptionPane.showMessageDialog(null, "Informações atualizadas.",
+                                    "Financiamento Atualizado", JOptionPane.INFORMATION_MESSAGE, rightPNG);
+                            }
                     }
 
-
-                // Geral Exceptions
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Valores inválidos.",
                             "ERROR: Valores incompatíveis.", JOptionPane.ERROR_MESSAGE);

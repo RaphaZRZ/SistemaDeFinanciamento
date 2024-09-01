@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class Painel extends JFrame {
+    ImageIcon rightPNG = new ImageIcon(getClass().getResource("right.png"));
 
     // Adicionando variáveis fora do construtor para utilizar em outros métodos
     JRadioButton apartamentoButton;
@@ -33,7 +34,7 @@ public class Painel extends JFrame {
     JTextField jTextFieldQuantidadeDeVagas;
     JTextField jTextFieldAreaTerreno;
     JTextField jTextFieldAreaConstruida;
-    JComboBox jComboBoxTipoDeZona;
+    JComboBox<String> jComboBoxTipoDeZona;
     JButton jButtonSalvar;
     JButton listarFinanciamentos;
     JButton editarFinanciamentos;
@@ -223,7 +224,7 @@ public class Painel extends JFrame {
 
         // JComboBox Tipo de zona do terreno
         String[] zonas = {"Residencial", "Comercial"};
-        jComboBoxTipoDeZona = new JComboBox(zonas);
+        jComboBoxTipoDeZona = new JComboBox<>(zonas);
         jComboBoxTipoDeZona.setBounds(185,372,110,20);
         panelInformacoesDoFinanciamento.add(jComboBoxTipoDeZona);
 
@@ -357,21 +358,19 @@ public class Painel extends JFrame {
                 } else if (jLabelTipoDeZona.isVisible()) {
                     String tipoDeZona = (String) jComboBoxTipoDeZona.getSelectedItem();
                     financiamentos.add(new Terreno(codigo, "Terreno", valorImovel, prazoFinanciamento, jurosAnual, tipoDeZona));
+                    controle = 1;
 
                     // Tipo do imóvel não selecionado
                 } else
                     throw new TipoFinanciamentoInvalidoException("Imóvel inválido");
 
                 if (controle == 1) {
-                    ImageIcon icon = new ImageIcon("C:\\Users\\rapha\\OneDrive\\Desktop\\PUCPR\\Repositórios\\SistemaDeFinanciamento\\src\\Painel\\right.png");
                     JOptionPane.showMessageDialog(null, "financiamento aprovado.",
-                            "Financiamento Realizado", JOptionPane.INFORMATION_MESSAGE, icon);
+                            "Financiamento Realizado", JOptionPane.INFORMATION_MESSAGE, rightPNG);
                     codigo += 1;
                 }
             }
 
-
-            // Geral Exceptions
         } catch (TipoFinanciamentoInvalidoException e) {
             JOptionPane.showMessageDialog(null, "Selecione o tipo do imóvel que deseja financiar.",
                     "ERROR: Tipo de imóvel inválido.", JOptionPane.ERROR_MESSAGE);
