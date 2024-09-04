@@ -1,7 +1,3 @@
-/*
-Próxima meta: Persistência de dados
- */
-
 package main;
 
 import painel.Painel;

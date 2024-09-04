@@ -2,25 +2,17 @@ package painel;
 
 import modelo.*;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 
 public class WindowListar extends WindowGeral{
-    JComboBox jComboBoxlistaDeFinanciamentos;
-
-
     WindowListar(ArrayList<Financiamento> financiamentos, int colunas) {
         super(financiamentos, colunas);
         this.financiamentos = financiamentos;
 
-
-        // JComboBox Lista de financiamentos já registrados
-        jComboBoxlistaDeFinanciamentos = new JComboBox(codigosArray);
-        jComboBoxlistaDeFinanciamentos.setBounds(50,25,190,20);
-        jComboBoxlistaDeFinanciamentos.addActionListener(this::visualizarInformacoes);
-        panelInformacoesDoFinanciamento.add(jComboBoxlistaDeFinanciamentos);
+        jComboBoxListaDeFinanciamentos.addActionListener(this::visualizarInformacoes);
+        panelInformacoesDoFinanciamento.add(jComboBoxListaDeFinanciamentos);
 
 
         setVisible(true);
@@ -28,53 +20,48 @@ public class WindowListar extends WindowGeral{
 
 
     private void visualizarInformacoes(ActionEvent actionEvent) {
-        // Controlando a visibilidade de valores específicos
-        jLabelQuantidadeDeAndares.setVisible(false);
-        jLabelQuantidadeDeVagasDoEstacionamento.setVisible(false);
-        jLabelAreaTerreno.setVisible(false);
-        jLabelAreaConstruida.setVisible(false);
-        jLabelTipoDeZona.setVisible(false);
+        ocultarJLabelsEspecificas();
 
-        /*
-        Varre o ArrayList de financiamentos para encontrar o financiamento que possui o código identico ao informado pelo usuário,
-        em seguida mostra todas as informações pertinentes controlando a visibilidade de cada JLabel.
-         */
+        label:
         for (Financiamento financiamento : financiamentos) {
-            if ((int) jComboBoxlistaDeFinanciamentos.getSelectedItem() == financiamento.getCodigo()) {
+            if ((int) jComboBoxListaDeFinanciamentos.getSelectedItem() == financiamento.getCodigo()) {
                 jLabelTipoImovel.setText("Tipo do imóvel: " + financiamento.getTipoDoImovel());
                 jLabelValorImovel.setText("Valor do imóvel: " + financiamento.getValorImovel());
                 jLabelPrazoEmAnos.setText("Prazo(em anos): " + financiamento.getPrazoFinanciamentoEmAnos());
                 jLabelJurosAnual.setText("Juros anual: " + financiamento.getTaxaJurosAnual());
 
                 // Jlabels da classe Apartamento
-                if (financiamento instanceof Apartamento) {
-                    int andares = ((Apartamento) financiamento).getQuantidadeDeAndares();
-                    int vagas = ((Apartamento) financiamento).getQuantidadeDeVagasDoEstacionamento();
+                switch (financiamento) {
+                    case Apartamento apartamento:
+                        int andares = apartamento.getQuantidadeDeAndares();
+                        int vagas = apartamento.getQuantidadeDeVagasDoEstacionamento();
 
-                    jLabelQuantidadeDeAndares.setVisible(true);
-                    jLabelQuantidadeDeVagasDoEstacionamento.setVisible(true);
-                    jLabelQuantidadeDeAndares.setText("Andares: " + andares);
-                    jLabelQuantidadeDeVagasDoEstacionamento.setText("Vagas: " + vagas);
-                    break;
+                        jLabelQuantidadeDeAndares.setVisible(true);
+                        jLabelQuantidadeDeVagasDoEstacionamento.setVisible(true);
+                        jLabelQuantidadeDeAndares.setText("Andares: " + andares);
+                        jLabelQuantidadeDeVagasDoEstacionamento.setText("Vagas: " + vagas);
+                        break label;
 
-                //  Jlabels da classe Casa
-                } else if (financiamento instanceof Casa) {
-                    double areaTerreno = ((Casa) financiamento).getAreaTerreno();
-                    double areaConstruida = ((Casa) financiamento).getAreaConstruida();
+                    //  Jlabels da classe Casa
+                    case Casa casa:
+                        double areaTerreno = casa.getAreaTerreno();
+                        double areaConstruida = casa.getAreaConstruida();
 
-                    jLabelAreaTerreno.setVisible(true);
-                    jLabelAreaConstruida.setVisible(true);
-                    jLabelAreaTerreno.setText("Área do terreno: " + areaTerreno);
-                    jLabelAreaConstruida.setText("Área construída: " + areaConstruida);
-                    break;
+                        jLabelAreaTerreno.setVisible(true);
+                        jLabelAreaConstruida.setVisible(true);
+                        jLabelAreaTerreno.setText("Área do terreno: " + areaTerreno);
+                        jLabelAreaConstruida.setText("Área construída: " + areaConstruida);
+                        break label;
 
-                //  Jlabels da classe Terreno
-                } else if (financiamento instanceof Terreno){
-                    String tipoDeZona = ((Terreno) financiamento).getTipoDeZona();
+                    //  Jlabels da classe Terreno
+                    case Terreno terreno:
+                        String tipoDeZona = terreno.getTipoDeZona();
 
-                    jLabelTipoDeZona.setVisible(true);
-                    jLabelTipoDeZona.setText("Tipo de Zona: " + tipoDeZona);
-                    break;
+                        jLabelTipoDeZona.setVisible(true);
+                        jLabelTipoDeZona.setText("Tipo de Zona: " + tipoDeZona);
+                        break label;
+                    default:
+                        break;
                 }
             }
         }

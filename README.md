@@ -12,20 +12,23 @@ Sistema que valida várias regras de negócio para criar um financiamento corret
 - `\src\exceptions` Contém todas as exceções do código, geralmente relacionadas às regras de negócio.
 
 ## Atualizações:
-*01/09/2024:* Substituição de if/else para Switch/case.
+*04/09/2024:* `jComboBoxListaDeFinanciamentos` foi realocada na classe `WindowGeral`.
+Criação do método `ocultarJLabelsEspecificas` na classe `WindowGeral`.
+
+*01/09/2024:* Substituição de `if/else` para `Switch/case`.
 Finzalização da implementação dos métodos validadores com a utilização de uma variável de controle.
 
-*30/08/2024:* Encapsulamento aprimorado da classe ValidarValores. 
+*30/08/2024:* Encapsulamento aprimorado da classe `ValidarValores`. 
 Começo da implementação de métodos capazes de validar todas as informações de determinado tipo de financiamento.
 
-*27/08/2024:* Criação da Classe WindowGeral(sendo a classe pais das classes WindowListar/WindowEditar/WindowExcluir).
+*27/08/2024:* Criação da Classe `WindowGeral`(sendo a classe pais das classes `WindowListar`/`WindowEditar`/`WindowExcluir`).
               Começo da otimização do código.
 
 *21/08/2024:* Documentação do processo para facilitar a criação de atualizações futuras.
 
-*31/07/2024:* Implementação do botão excluir(arrumar posição do botão).
+*31/07/2024:* Implementação do botão `excluirFinanciamentos`(arrumar posição do botão).
 
-*28/07/2024:* Implementação do botão Editar.
+*28/07/2024:* Implementação do botão `editarFinanciamentos`.
 
 *24/07/2024:* Implementação do sistema de escolha do financiamento a ser mostrado na opção listar.
 
@@ -36,7 +39,7 @@ Criação de uma variável específica para identificar o tipo do imóvel a ser 
 
 *19/07/2024:* Implementação de todas as regras de negócio.
 Implementação do botão Salvar.
-Começo da implementação dos botões Listar/Editar/Excluir.
+Começo da implementação dos botões `listarFinanciamentos`/`editarFinanciamentos`/`excluirFinanciamentos`.
 
 *17/07/2024:* Implementação das regras de negócio para financiamentos de casas e apartamentos.
 
@@ -47,17 +50,17 @@ Começo da implementação das regras de negócio.
 
 *12/07/2024:* Começo da implementação de uma interface gráfica por meio da biblioteca Swing.
 
-*08/07/2024:* Persistência de dados com file reader/writer e objectStream in/out.
+*08/07/2024:* Persistência de dados com file `reader/writer` e `objectStream in/out`.
 
-*25/06/2024:* Implementação de tratamentos de exceções com try/catch.
+*25/06/2024:* Implementação de tratamentos de exceções com `try/catch`.
 Implementação de exceções personalizadas.
 
-*20/06/2024:* Implementação de novos atributos nas classes herdadas da classe Financiamento.
+*20/06/2024:* Implementação de novos atributos nas classes herdadas da classe `Financiamento`.
 
-*04/06/2024:* Finalização dos cálculos da nova precificação, merge da branch com a main.
+*04/06/2024:* Finalização dos cálculos da nova precificação, merge da branch com a `Main`.
 
-*03/06/2024:* Criação da branch NovaPrecificação.
+*03/06/2024:* Criação da branch `NovaPrecificação`.
 
-*30/05/2024:* Separação da classe Financiamento em subclasses.
+*30/05/2024:* Separação da classe `Financiamento` em subclasses.
 
 *28/05/2024:* Criação das classes principais do projeto.

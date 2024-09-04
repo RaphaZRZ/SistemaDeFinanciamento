@@ -16,7 +16,6 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class WindowEditar extends WindowGeral {
-    JComboBox<Integer> jComboBoxListaDeFinanciamentos;
     JTextField jTextFieldValorImovel;
     JTextField jTextFieldPrazoEmAnos;
     JTextField jTextFieldJurosAnual;
@@ -32,10 +31,6 @@ public class WindowEditar extends WindowGeral {
         super(financiamentos, colunas);
         this.financiamentos = financiamentos;
 
-
-        // JComboBox Lista de financiamentos já registrados
-        jComboBoxListaDeFinanciamentos = new JComboBox<>(codigosArray);
-        jComboBoxListaDeFinanciamentos.setBounds(50,25,190,20);
         jComboBoxListaDeFinanciamentos.addActionListener(this::visualizarInformacoes);
         panelInformacoesDoFinanciamento.add(jComboBoxListaDeFinanciamentos);
 
@@ -101,22 +96,13 @@ public class WindowEditar extends WindowGeral {
         setVisible(true);
 
 
-        // Deixando os JTextFields e JComboBox específicos invisíveis
-        jTextFieldQuantidadeDeAndares.setVisible(false);
-        jTextFieldQuantidadeDeVagas.setVisible(false);
-        jTextFieldAreaTerreno.setVisible(false);
-        jTextFieldAreaConstruida.setVisible(false);
-        jComboBoxTipoDeZona.setVisible(false);
+        ocultarJLabelsEspecificas();
     }
 
 
     private void visualizarInformacoes(ActionEvent actionEvent) {
         // Controlando a visibilidade de valores específicos
-        jLabelQuantidadeDeAndares.setVisible(false);
-        jLabelQuantidadeDeVagasDoEstacionamento.setVisible(false);
-        jLabelAreaTerreno.setVisible(false);
-        jLabelAreaConstruida.setVisible(false);
-        jLabelTipoDeZona.setVisible(false);
+        ocultarJLabelsEspecificas();
 
         jTextFieldQuantidadeDeAndares.setVisible(false);
         jTextFieldQuantidadeDeVagas.setVisible(false);
@@ -179,7 +165,7 @@ public class WindowEditar extends WindowGeral {
         for (Financiamento financiamento : financiamentos) {
             if ((int) jComboBoxListaDeFinanciamentos.getSelectedItem() == financiamento.getCodigo()) {
                 try {
-                    int controle = 0;
+                    boolean valoresAceitos = false;
 
                     // Valida os valores obrigatórios alterados
                     float valorImovel = Float.parseFloat(jTextFieldValorImovel.getText());
@@ -195,7 +181,7 @@ public class WindowEditar extends WindowGeral {
                                 if (ValidarValores.apartamento(quantidadeDeAndares, quantidadeDeVagas)) {
                                     apartamento.setQuantidadeDeAndares(quantidadeDeAndares);
                                     apartamento.setQuantidadeDeVagasDoEstacionamento(quantidadeDeVagas);
-                                    controle = 1;
+                                    valoresAceitos = true;
                                 }
                             }
 
@@ -206,7 +192,7 @@ public class WindowEditar extends WindowGeral {
                                 if (ValidarValores.casa(areaTerreno, areaConstruida)) {
                                     casa.setAreaTerreno(areaTerreno);
                                     casa.setAreaConstruida(areaConstruida);
-                                    controle = 1;
+                                    valoresAceitos = true;
                                 }
                             }
 
@@ -214,7 +200,7 @@ public class WindowEditar extends WindowGeral {
                                 String tipoDeZona = (String) jComboBoxTipoDeZona.getSelectedItem();
 
                                 terreno.setTipoDeZona(tipoDeZona);
-                                controle = 1;
+                                valoresAceitos = true;
                             }
 
                             default -> {
@@ -225,10 +211,9 @@ public class WindowEditar extends WindowGeral {
                         financiamento.setPrazoFinanciamentoEmAnos(prazoFinanciamento);
                         financiamento.setTaxaJurosAnual(jurosAnual);
 
-                        if (controle == 1) {
+                        if (valoresAceitos)
                             JOptionPane.showMessageDialog(null, "Informações atualizadas.",
                                     "Financiamento Atualizado", JOptionPane.INFORMATION_MESSAGE, rightPNG);
-                            }
                     }
 
                 } catch (NumberFormatException e) {

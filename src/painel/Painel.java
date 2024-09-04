@@ -1,12 +1,5 @@
-/*
-Checar funcionalidade de todas funções
-Criar função excluír
- */
-
-
 package painel;
 
-import exceptions.*;
 import modelo.*;
 import util.ValidarValores;
 
@@ -14,11 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Painel extends JFrame {
-    ImageIcon rightPNG = new ImageIcon(getClass().getResource("right.png"));
+    ImageIcon rightPNG = new ImageIcon(Objects.requireNonNull(getClass().getResource("right.png")));
 
-    // Adicionando variáveis fora do construtor para utilizar em outros métodos
     JRadioButton apartamentoButton;
     JRadioButton casaButton;
     JRadioButton terrenoButton;
@@ -40,22 +33,17 @@ public class Painel extends JFrame {
     JButton editarFinanciamentos;
     JButton excluirFinanciamentos;
 
-    /*
-    ArrayList financiamentos é utilizado para transitar os dados de cada financiamento registrado entre diferentes Classes.
-    Código também interage com outras classes.
-     */
+
+    // ArrayList financiamentos e Integer codigo são utilizados para transitar os dados de cada financiamento registrado entre diferentes Classes.
     ArrayList<Financiamento> financiamentos;
     int codigo;
 
-
-    /*
-    Criação da interface gráfica principal, com as operações CRUD.
-     */
+    // Criação da interface gráfica principal, com as operações CRUD.
     public Painel(ArrayList<Financiamento> financiamentos, int codigo) {
         this.financiamentos = financiamentos;
         this.codigo = codigo;
 
-        // JFrame
+        // JFrame Janela principal do programa.
         setTitle("Financiamentos");
         setSize(700, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,7 +52,7 @@ public class Painel extends JFrame {
         setLayout(null);
 
 
-        // JPanel Titulo
+        // JPanel Titulo.
         JPanel panelTitulo = new JPanel();
         panelTitulo.setBounds(0, 0, 800, 100);
         panelTitulo.setBackground(new Color(168, 234, 250));
@@ -72,7 +60,7 @@ public class Painel extends JFrame {
         add(panelTitulo);
 
 
-        // JPanel InformacoesDoFinanciamento
+        // JPanel InformacoesDoFinanciamento, painel que contém o campo dos valores a serem registrados.
         JPanel panelInformacoesDoFinanciamento = new JPanel();
         panelInformacoesDoFinanciamento.setBounds(0, 100, 330, 500);
         panelInformacoesDoFinanciamento.setBackground(new Color(127, 127, 127));
@@ -80,7 +68,7 @@ public class Painel extends JFrame {
         add(panelInformacoesDoFinanciamento);
 
 
-        // JPanel Botões de ação do usuário
+        // JPanel Botões, painel que contém os botões de ação do usuário(SALVAR/LISTAR/EDITAR/EXCLUIR).
         JPanel panelAcoesUsuario = new JPanel();
         panelAcoesUsuario.setBounds(330, 100, 360, 500);
         panelAcoesUsuario.setBackground(new Color(110, 110, 110));
@@ -88,7 +76,7 @@ public class Painel extends JFrame {
         add(panelAcoesUsuario);
 
 
-        // radioButtons Informação do tipo de financiamento
+        // radioButtons Informação do tipo de financiamento, escolha entre os tipos de financiamentos.
         apartamentoButton = new JRadioButton("Apartamento");
         apartamentoButton.setOpaque(false);
         apartamentoButton.setBounds(0, 80, 150, 20);
@@ -112,21 +100,21 @@ public class Painel extends JFrame {
         panelInformacoesDoFinanciamento.add(terrenoButton);
 
 
-        // redioButtonsGroup Informações do tipo de financiamento
+        // redioButtonsGroup Informações do tipo de financiamento.
         ButtonGroup grupoTipoDeFinanciamentos = new ButtonGroup();
         grupoTipoDeFinanciamentos.add(apartamentoButton);
         grupoTipoDeFinanciamentos.add(casaButton);
         grupoTipoDeFinanciamentos.add(terrenoButton);
 
 
-        // JLabel Título
+        // JLabel Título.
         JLabel title = new JLabel("SISTEMA DE FINANCIAMENTOS");
         title.setBounds(30, 25, 610, 50);
         title.setFont(new Font("Arial", Font.BOLD, 40));
         panelTitulo.add(title);
 
 
-        // JLabel Selecionar tipo de financiamento
+        // JLabel Selecionar tipo de financiamento.
         JLabel selecionarTipoDeFinanciamento = new JLabel("Escolha o tipo do imóvel:");
         selecionarTipoDeFinanciamento.setBounds(0, 0, 400, 100);
         selecionarTipoDeFinanciamento.setFont(new Font("Arial", Font.BOLD, 25));
@@ -134,7 +122,7 @@ public class Painel extends JFrame {
         panelInformacoesDoFinanciamento.add(selecionarTipoDeFinanciamento);
 
 
-        // JLabel Informações obrigatórias para todos os financiamentos
+        // JLabel Informações obrigatórias para todos os financiamentos.
         JLabel valorImovel = new JLabel("Valor do imóvel:");
         valorImovel.setBounds(29, 180, 400, 100);
         valorImovel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -152,7 +140,7 @@ public class Painel extends JFrame {
         panelInformacoesDoFinanciamento.add(jurosAnual);
 
 
-        // JLabel Informações específicas de cada imóvel a ser financiado
+        // JLabel Informações específicas de cada imóvel a ser financiado.
         jLabelQuantidadeDeAndares = new JLabel("Andares:");
         jLabelQuantidadeDeAndares.setBounds(97, 330, 400, 100);
         jLabelQuantidadeDeAndares.setFont(new Font("Arial", Font.BOLD, 20));
@@ -180,7 +168,7 @@ public class Painel extends JFrame {
         panelInformacoesDoFinanciamento.add(jLabelTipoDeZona);
 
 
-        // JTextField Informações obrigatórias para todos os financiamentos
+        // JTextField Informações obrigatórias para todos os financiamentos.
         jTextFieldValorImovel = new JTextField("50000");
         jTextFieldValorImovel.setBounds(185,222,110,20);
         jTextFieldValorImovel.setFont(new Font("Arial", Font.BOLD, 15));
@@ -198,7 +186,7 @@ public class Painel extends JFrame {
         panelInformacoesDoFinanciamento.add(jTextFieldJurosAnual);
 
 
-        // JTextField Informações específicas de cada imóvel a ser financiado
+        // JTextField Informações específicas de cada imóvel a ser financiado.
         jTextFieldQuantidadeDeAndares = new JTextField();
         jTextFieldQuantidadeDeAndares.setBounds(185,372,110,20);
         jTextFieldQuantidadeDeAndares.setFont(new Font("Arial", Font.BOLD, 15));
@@ -222,14 +210,14 @@ public class Painel extends JFrame {
         panelInformacoesDoFinanciamento.add(jTextFieldAreaConstruida);
 
 
-        // JComboBox Tipo de zona do terreno
+        // JComboBox Tipo de zona do terreno.
         String[] zonas = {"Residencial", "Comercial"};
         jComboBoxTipoDeZona = new JComboBox<>(zonas);
         jComboBoxTipoDeZona.setBounds(185,372,110,20);
         panelInformacoesDoFinanciamento.add(jComboBoxTipoDeZona);
 
 
-        // JButton Salvar(cria um financiamento)
+        // JButton Salvar(cria um financiamento).
         jButtonSalvar = new JButton("Salvar");
         jButtonSalvar.setBounds(27, 30, 300, 70);
         jButtonSalvar.setFont(new Font("Arial", Font.BOLD, 40));
@@ -239,7 +227,7 @@ public class Painel extends JFrame {
         panelAcoesUsuario.add(jButtonSalvar);
 
 
-        // JButton Listar(lista todos os financiamentos)
+        // JButton Listar(lista todos os financiamentos).
         listarFinanciamentos = new JButton("Listar");
         listarFinanciamentos.setBounds(27, 140, 300, 70);
         listarFinanciamentos.setFont(new Font("Arial", Font.BOLD, 40));
@@ -249,7 +237,7 @@ public class Painel extends JFrame {
         panelAcoesUsuario.add(listarFinanciamentos);
 
 
-        // JButton Editar(edita um financiamento)
+        // JButton Editar(edita um financiamento).
         editarFinanciamentos = new JButton("Editar");
         editarFinanciamentos.setBounds(27, 250, 300, 70);
         editarFinanciamentos.setFont(new Font("Arial", Font.BOLD, 40));
@@ -259,7 +247,7 @@ public class Painel extends JFrame {
         panelAcoesUsuario.add(editarFinanciamentos);
 
 
-        // JButton Excluir(exclui um financiamentos)
+        // JButton Excluir(exclui um financiamentos).
         excluirFinanciamentos = new JButton("Excluir");
         excluirFinanciamentos.setBounds(27, 360, 300, 70);
         excluirFinanciamentos.setFont(new Font("Arial", Font.BOLD, 40));
@@ -272,7 +260,7 @@ public class Painel extends JFrame {
         setVisible(true);
 
 
-        // Deixando as JLabels/JTextFields/JComboBox específicos invisíveis
+        // Deixando as JLabels/JTextFields/JComboBox específicos invisíveis.
         jLabelQuantidadeDeAndares.setVisible(false);
         jLabelQuantidadeDeVagas.setVisible(false);
         jLabelAreaTerreno.setVisible(false);
@@ -287,9 +275,9 @@ public class Painel extends JFrame {
     }
 
 
-    // Radiobuttons metódo
+    // Radiobuttons metódo.
     public void escolherTipoDoImovel(ActionEvent e) {
-        // Deixando as JLabels/JTextFields/JComboBox específicos invisíveis
+        // Deixando as JLabels/JTextFields/JComboBox específicos invisíveis.
         jLabelQuantidadeDeAndares.setVisible(false);
         jLabelQuantidadeDeVagas.setVisible(false);
         jLabelAreaTerreno.setVisible(false);
@@ -302,7 +290,7 @@ public class Painel extends JFrame {
         jTextFieldAreaConstruida.setVisible(false);
         jComboBoxTipoDeZona.setVisible(true);
 
-        // Controlando a visibilidade de valores específicos
+        // Controlando a visibilidade de valores específicos.
         if (e.getSource() == apartamentoButton) {
             jLabelQuantidadeDeAndares.setVisible(true);
             jLabelQuantidadeDeVagas.setVisible(true);
@@ -320,81 +308,79 @@ public class Painel extends JFrame {
     }
 
 
-    // JButtom Salvar
-    /*
-    Válida se todos os dados estão corretos antes de salvar o financiamento no ArrayList Financiamentos.
-     */
+    // JButtom Salvar, válida se todos os dados estão corretos antes de salvar o financiamento no ArrayList Financiamentos.
     public void criarFinanciamentos(ActionEvent actionEvent) {
         try {
-            int controle = 0;
+            boolean valoresAceitos = false;
 
-            // Valores obrigatórias
+            // Valores obrigatórios para o registro de um novo financiamento.
             float valorImovel = Float.parseFloat(jTextFieldValorImovel.getText());
             int prazoFinanciamento = Integer.parseInt(jTextFieldPrazoEmAnos.getText());
             float jurosAnual = Float.parseFloat(jTextFieldJurosAnual.getText());
 
             if (ValidarValores.financiamentoGeral(valorImovel, prazoFinanciamento, jurosAnual)) {
-                // Valores específicos da classe Apartamento
+                // Valores específicos da classe Apartamento.
                 if (jLabelQuantidadeDeAndares.isVisible()) {
                     int quantidadeDeAndares = Integer.parseInt(jTextFieldQuantidadeDeAndares.getText());
                     int quantidadeDeVagas = Integer.parseInt((jTextFieldQuantidadeDeVagas.getText()));
 
                     if (ValidarValores.apartamento(quantidadeDeAndares, quantidadeDeVagas)) {
                         financiamentos.add(new Apartamento(codigo, "Apartamento", valorImovel, prazoFinanciamento, jurosAnual, quantidadeDeAndares, quantidadeDeVagas));
-                        controle = 1;
+                        valoresAceitos = true;
                     }
 
-                    // Valores específicos da classe Casa
+                    // Valores específicos da classe Casa.
                 } else if (jLabelAreaTerreno.isVisible()) {
                     double areaTerreno = Double.parseDouble(jTextFieldAreaTerreno.getText());
                     double areaConstruida = Double.parseDouble(jTextFieldAreaConstruida.getText());
 
                     if (ValidarValores.casa(areaTerreno, areaConstruida)) {
                         financiamentos.add(new Casa(codigo, "Casa", valorImovel, prazoFinanciamento, jurosAnual, areaTerreno, areaConstruida));
-                        controle = 1;
+                        valoresAceitos = true;
                     }
 
-                    // Valores específicos da classe Terreno
+                    // Valores específicos da classe Terreno.
                 } else if (jLabelTipoDeZona.isVisible()) {
                     String tipoDeZona = (String) jComboBoxTipoDeZona.getSelectedItem();
                     financiamentos.add(new Terreno(codigo, "Terreno", valorImovel, prazoFinanciamento, jurosAnual, tipoDeZona));
-                    controle = 1;
+                    valoresAceitos = true;
 
-                    // Tipo do imóvel não selecionado
+                    // Tipo do imóvel não selecionado.
                 } else
-                    throw new TipoFinanciamentoInvalidoException("Imóvel inválido");
+                    JOptionPane.showMessageDialog(null, "Selecione o tipo do imóvel que deseja financiar.",
+                            "ERROR: Tipo de imóvel inválido.", JOptionPane.ERROR_MESSAGE);
 
-                if (controle == 1) {
+                if (valoresAceitos) {
                     JOptionPane.showMessageDialog(null, "financiamento aprovado.",
                             "Financiamento Realizado", JOptionPane.INFORMATION_MESSAGE, rightPNG);
                     codigo += 1;
                 }
             }
 
-        } catch (TipoFinanciamentoInvalidoException e) {
-            JOptionPane.showMessageDialog(null, "Selecione o tipo do imóvel que deseja financiar.",
-                    "ERROR: Tipo de imóvel inválido.", JOptionPane.ERROR_MESSAGE);
-
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Valores inválidos.",
+                    "ERROR: Valores incompatíveis.", JOptionPane.ERROR_MESSAGE);
         }
     }
 
 
-    // JButton Listar
+    // JButton Listar.
     private void listarFinanciamentos(ActionEvent actionEvent) {
         dispose();
-        // O número de colunas é necessário para fazer o encaixe do segundo botão na função excluir
+        // O número de colunas é necessário para fazer o encaixe do segundo botão na função excluir.
         new WindowListar(financiamentos, 1);
     }
 
 
-    // JButton Editar
+    // JButton Editar.
     private void editarFinanciamentos(ActionEvent actionEvent) {
         dispose();
+        // O número de colunas é necessário para fazer o encaixe do segundo botão na função excluir.
         new WindowEditar(financiamentos, 2);
     }
 
 
-    // JButton excluir
+    // JButton excluir.
     private void excluirFinanciamentos(ActionEvent actionEvent) {
         dispose();
         new WindowExcluir(financiamentos);
