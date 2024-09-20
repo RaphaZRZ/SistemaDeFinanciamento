@@ -22,7 +22,6 @@ public class WindowListar extends WindowGeral{
     private void visualizarInformacoes(ActionEvent actionEvent) {
         ocultarJLabelsEspecificas();
 
-        label:
         for (Financiamento financiamento : financiamentos) {
             if ((int) jComboBoxListaDeFinanciamentos.getSelectedItem() == financiamento.getCodigo()) {
                 jLabelTipoImovel.setText("Tipo do imóvel: " + financiamento.getTipoDoImovel());
@@ -33,33 +32,26 @@ public class WindowListar extends WindowGeral{
                 // Jlabels da classe Apartamento
                 switch (financiamento) {
                     case Apartamento apartamento:
-                        int andares = apartamento.getQuantidadeDeAndares();
-                        int vagas = apartamento.getQuantidadeDeVagasDoEstacionamento();
-
                         jLabelQuantidadeDeAndares.setVisible(true);
                         jLabelQuantidadeDeVagasDoEstacionamento.setVisible(true);
-                        jLabelQuantidadeDeAndares.setText("Andares: " + andares);
-                        jLabelQuantidadeDeVagasDoEstacionamento.setText("Vagas: " + vagas);
-                        break label;
+                        jLabelQuantidadeDeAndares.setText("Andares: " + apartamento.getQuantidadeDeAndares());
+                        jLabelQuantidadeDeVagasDoEstacionamento.setText("Vagas: " + apartamento.getQuantidadeDeVagasDoEstacionamento());
+                        break;
 
                     //  Jlabels da classe Casa
                     case Casa casa:
-                        double areaTerreno = casa.getAreaTerreno();
-                        double areaConstruida = casa.getAreaConstruida();
-
                         jLabelAreaTerreno.setVisible(true);
                         jLabelAreaConstruida.setVisible(true);
-                        jLabelAreaTerreno.setText("Área do terreno: " + areaTerreno);
-                        jLabelAreaConstruida.setText("Área construída: " + areaConstruida);
-                        break label;
+                        jLabelAreaTerreno.setText("Área do terreno: " + casa.getAreaTerreno());
+                        jLabelAreaConstruida.setText("Área construída: " + casa.getAreaConstruida());
+                        break;
 
                     //  Jlabels da classe Terreno
                     case Terreno terreno:
-                        String tipoDeZona = terreno.getTipoDeZona();
-
                         jLabelTipoDeZona.setVisible(true);
-                        jLabelTipoDeZona.setText("Tipo de Zona: " + tipoDeZona);
-                        break label;
+                        jLabelTipoDeZona.setText("Tipo de Zona: " + terreno.getTipoDeZona());
+                        break;
+
                     default:
                         break;
                 }

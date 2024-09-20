@@ -69,7 +69,7 @@ public class WindowGeral extends JFrame {
 
         // JComboBox Lista de financiamentos já registrados
         jComboBoxListaDeFinanciamentos = new JComboBox<>(codigosArray);
-        jComboBoxListaDeFinanciamentos.setBounds(50,25,190,20);
+        jComboBoxListaDeFinanciamentos.setBounds(50, 25, 190, 20);
         panelInformacoesDoFinanciamento.add(jComboBoxListaDeFinanciamentos);
 
 
@@ -153,4 +153,16 @@ public class WindowGeral extends JFrame {
         jLabelAreaConstruida.setVisible(false);
         jLabelTipoDeZona.setVisible(false);
     }
+
+    /*
+    protected boolean validarCodigoFinanciamento() {
+        int codigoFinanciamentoSelecionado = (int) jComboBoxListaDeFinanciamentos.getSelectedItem();
+
+        for (Financiamento financiamento : financiamentos) {
+            if (codigoFinanciamentoSelecionado == financiamento.getCodigo())
+                return true;
+        }
+
+        return false;
+    }*/
 }
