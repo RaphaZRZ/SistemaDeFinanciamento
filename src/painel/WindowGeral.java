@@ -12,7 +12,7 @@ import java.util.Objects;
 
 /*
 Essa classe define o tamanho da janela para as funções listar/editar/excluir.
-Recebe como argumento a quantidade de colunas(preenchidas por botões), geralmente entre 1 e 2.
+Recebe como argumento a quantidade de botões, geralmente entre 1 e 2.
  */
 public class WindowGeral extends JFrame {
     ImageIcon rightPNG = new ImageIcon(Objects.requireNonNull(getClass().getResource("right.png")));
@@ -36,7 +36,7 @@ public class WindowGeral extends JFrame {
     Integer[] codigosArray;
 
 
-    public WindowGeral(ArrayList<Financiamento> financiamentos, int colunas) {
+    public WindowGeral(ArrayList<Financiamento> financiamentos, int botoes) {
         // JFrame janela de funções específicas.
         setTitle("Financiamentos");
         setSize(300, 500);
@@ -56,7 +56,7 @@ public class WindowGeral extends JFrame {
         // JPanel Botões, painel que contém os botões baseado em qual função o usuário escolheu.
         panelBotoes = new JPanel();
         panelBotoes.setBounds(0, 380, 284, 81);
-        panelBotoes.setLayout(new GridLayout(1, colunas));
+        panelBotoes.setLayout(new GridLayout(1, botoes));
         add(panelBotoes);
 
 
@@ -139,10 +139,10 @@ public class WindowGeral extends JFrame {
         dispose();
 
         try {
-            new Painel(financiamentos, codigos.getLast() + 1);
+            new PainelPrincipal(financiamentos, codigos.getLast() + 1);
 
         } catch (NoSuchElementException e) {
-            new Painel(financiamentos, 0);
+            new PainelPrincipal(financiamentos, 0);
         }
     }
 

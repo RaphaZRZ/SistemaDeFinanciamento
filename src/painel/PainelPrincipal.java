@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Painel extends JFrame {
+public class PainelPrincipal extends JFrame {
     ImageIcon rightPNG = new ImageIcon(Objects.requireNonNull(getClass().getResource("right.png")));
 
     JRadioButton apartamentoButton;
@@ -39,7 +39,7 @@ public class Painel extends JFrame {
     int codigo;
 
     // Criação da interface gráfica principal, com as operações CRUD.
-    public Painel(ArrayList<Financiamento> financiamentos, int codigo) {
+    public PainelPrincipal(ArrayList<Financiamento> financiamentos, int codigo) {
         this.financiamentos = financiamentos;
         this.codigo = codigo;
 
@@ -76,7 +76,7 @@ public class Painel extends JFrame {
         add(panelAcoesUsuario);
 
 
-        // radioButtons Informação do tipo de financiamento, escolha entre os tipos de financiamentos.
+        // JRadioButton Informação do tipo de financiamento, escolha entre os tipos de financiamentos.
         apartamentoButton = new JRadioButton("Apartamento");
         apartamentoButton.setOpaque(false);
         apartamentoButton.setBounds(0, 80, 150, 20);
