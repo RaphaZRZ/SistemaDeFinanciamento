@@ -100,7 +100,7 @@ public class PainelPrincipal extends JFrame {
         panelInformacoesDoFinanciamento.add(terrenoButton);
 
 
-        // redioButtonsGroup Informações do tipo de financiamento.
+        // radioButtonsGroup Informações do tipo de financiamento.
         ButtonGroup grupoTipoDeFinanciamentos = new ButtonGroup();
         grupoTipoDeFinanciamentos.add(apartamentoButton);
         grupoTipoDeFinanciamentos.add(casaButton);

@@ -12,6 +12,11 @@ Sistema que valida várias regras de negócio para criar um financiamento corret
 - `\src\exceptions` Contém todas as exceções do código, geralmente relacionadas às regras de negócio.
 
 ## Atualizações:
+*09/10/2024:* Explicação da classe `Painel` concluída.
+              Explicação dos componentes utilizados da biblioteca `java.swing` concluída.
+
+*08/10/2024:* Início da documentação do código para facilitar futuras alterações.
+
 *20/09/2024:* Finalização da interface com a biblioteca java.swing.
 
 *04/09/2024:* `jComboBoxListaDeFinanciamentos` foi realocada na classe `WindowGeral`.
