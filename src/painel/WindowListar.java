@@ -14,7 +14,6 @@ public class WindowListar extends WindowGeral{
         jComboBoxListaDeFinanciamentos.addActionListener(this::visualizarInformacoes);
         panelInformacoesDoFinanciamento.add(jComboBoxListaDeFinanciamentos);
 
-
         setVisible(true);
     }
 

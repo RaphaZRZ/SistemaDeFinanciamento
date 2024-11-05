@@ -33,12 +33,6 @@ public class Apartamento extends Financiamento{
 
     // Método PRICE
     public double calcularPagamentoMensal() {
-        /*
-        Esta fórmula apresenta resultados mais precisos, porém esta não é a fórmula contida nas instruções do projeto.
-
-        return ((this.valorImovel * Math.pow(1 + this.taxaJurosMensal, this.prazoFinanciamentoEmMeses)) /
-                Math.pow(1 + this.taxaJurosMensal, this.prazoFinanciamentoEmMeses - 1)) / this.prazoFinanciamentoEmMeses;
-         */
         return (this.valorImovel * Math.pow(1 + this.taxaJurosMensal, this.prazoFinanciamentoEmMeses)) /
                 Math.pow(1 + this.taxaJurosMensal, this.prazoFinanciamentoEmMeses - 1);
     }

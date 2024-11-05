@@ -24,7 +24,6 @@ public class WindowExcluir extends WindowListar {
         panelBotoes.add(jButtonExcluir);
 
         setVisible(true);
-
     }
 
     private void excluir(ActionEvent actionEvent) {

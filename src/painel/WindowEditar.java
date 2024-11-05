@@ -92,9 +92,7 @@ public class WindowEditar extends WindowGeral {
         jButtonAtualizar.addActionListener(this::atualizarFinanciamentos);
         panelBotoes.add(jButtonAtualizar);
 
-
         setVisible(true);
-
 
         ocultarJLabelsEspecificas();
     }

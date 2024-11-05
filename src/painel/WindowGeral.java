@@ -153,16 +153,4 @@ public class WindowGeral extends JFrame {
         jLabelAreaConstruida.setVisible(false);
         jLabelTipoDeZona.setVisible(false);
     }
-
-    /*
-    protected boolean validarCodigoFinanciamento() {
-        int codigoFinanciamentoSelecionado = (int) jComboBoxListaDeFinanciamentos.getSelectedItem();
-
-        for (Financiamento financiamento : financiamentos) {
-            if (codigoFinanciamentoSelecionado == financiamento.getCodigo())
-                return true;
-        }
-
-        return false;
-    }*/
 }
