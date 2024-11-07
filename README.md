@@ -1,5 +1,5 @@
 # ![Interface](https://github.com/user-attachments/assets/5b929ffe-e9ae-4ca2-83d9-ae1881c11e1d)
-> Status: DESENVOLVIMENTO ⚠️
+> Status: CONCLUÍDO ✅
 
 ## Sobre o projeto:
 Sistema que valida várias regras de negócio para criar um financiamento correto, contendo as operações CRUD e persistência de dados num file .json.
@@ -8,10 +8,13 @@ Sistema que valida várias regras de negócio para criar um financiamento corret
 - `\src\main` Contém o ArrayList de financiamentos, também inicia a janela criada pelo java.swing.
 - `\src\painel` Contém todo código para que cada botão e janela funcione corretamente.
 - `\src\modelo` Contém a classe Financiamento e suas especializações.
-- `\scr\util` Contém as regras de negócio para validar cada financiamento.
+- `\scr\util` Contém as regras de negócio para validar cada financiamento e a serialização de objetos.
 - `\src\exceptions` Contém todas as exceções do código, geralmente relacionadas às regras de negócio.
 
 ## Atualizações:
+*07/11/2024:* Criação da classe `serializarDesserializar`.
+              Finalização do arquivo `DETALHES DO CODIGO`, agora serão apenas pequenos ajustes se necessário.
+
 *05/11/2024:* Continuação do desenvolvimento do arquivo `DETALHES DO CODIGO`.
 
 *09/10/2024:* Explicação da classe `Painel` concluída.
@@ -25,12 +28,12 @@ Sistema que valida várias regras de negócio para criar um financiamento corret
 Criação do método `ocultarJLabelsEspecificas` na classe `WindowGeral`.
 
 *01/09/2024:* Substituição de `if/else` para `Switch/case`.
-Finzalização da implementação dos métodos validadores com a utilização de uma variável de controle.
+Finalização da implementação dos métodos validadores com a utilização de uma variável de controle.
 
 *30/08/2024:* Encapsulamento aprimorado da classe `ValidarValores`. 
 Começo da implementação de métodos capazes de validar todas as informações de determinado tipo de financiamento.
 
-*27/08/2024:* Criação da Classe `WindowGeral`(sendo a classe pais das classes `WindowListar`/`WindowEditar`/`WindowExcluir`).
+*27/08/2024:* Criação da Classe `WindowGeral`(sendo a classe pai das classes `WindowListar`/`WindowEditar`/`WindowExcluir`).
               Começo da otimização do código.
 
 *21/08/2024:* Documentação do processo para facilitar a criação de atualizações futuras.

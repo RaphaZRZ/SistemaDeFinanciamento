@@ -1,7 +1,7 @@
 package modelo;
 
 
-public class Terreno extends Financiamento{
+public class Terreno extends Financiamento {
     private String tipoDeZona;
 
     public Terreno(int codigo, String tipoDoImovel, double valorTerreno, int prazoFinanciamentoEmAnos, double taxaJurosAnual, String tipoDeZona) {

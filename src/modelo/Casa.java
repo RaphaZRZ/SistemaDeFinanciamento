@@ -3,7 +3,7 @@ package modelo;
 import exceptions.AcrescimoMaiorQueJurosException;
 
 
-public class Casa extends Financiamento{
+public class Casa extends Financiamento {
     private double areaTerreno;
     private double areaConstruida;
 

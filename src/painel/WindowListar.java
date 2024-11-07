@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 
 public class WindowListar extends WindowGeral{
-    WindowListar(ArrayList<Financiamento> financiamentos, int colunas) {
-        super(financiamentos, colunas);
+    WindowListar(ArrayList<Financiamento> financiamentos, int colunas, String caminhoArquivo) {
+        super(financiamentos, colunas, caminhoArquivo);
         this.financiamentos = financiamentos;
 
         jComboBoxListaDeFinanciamentos.addActionListener(this::visualizarInformacoes);

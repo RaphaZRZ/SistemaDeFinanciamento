@@ -13,8 +13,8 @@ public class WindowExcluir extends WindowListar {
     /*
     Utiliza o painel da classe WindowListar para criar seu próprio painel, porém com duas colunas
     */
-    public WindowExcluir(ArrayList<Financiamento> financiamentos) {
-        super(financiamentos, 2);
+    public WindowExcluir(ArrayList<Financiamento> financiamentos, String caminhoArquivo) {
+        super(financiamentos, 2, caminhoArquivo);
 
         jButtonExcluir = new JButton("Excluir");
         jButtonExcluir.setFont(new Font("Arial", Font.BOLD, 25));
@@ -32,8 +32,9 @@ public class WindowExcluir extends WindowListar {
                 financiamentos.remove(financiamentos.get(i));
                 JOptionPane.showMessageDialog(null, "Informações excluídas.",
                         "Financiamento Excluído", JOptionPane.INFORMATION_MESSAGE, rightPNG);
+                util.serializarDesserializar.serializar(financiamentos, caminhoArquivo);
                 dispose();
-                new WindowExcluir(financiamentos);
+                new WindowExcluir(financiamentos, caminhoArquivo);
                 break;
             }
         }

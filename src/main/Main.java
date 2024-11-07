@@ -7,8 +7,10 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        // Criação do ArrayList para salvar os dados de cada financiamento
-        ArrayList<Financiamento> financiamentos = new ArrayList<>();
-        new PainelPrincipal(financiamentos, 0);
+        String caminhoArquivo = "dadosFinanciamentos.arrayOBJ";
+        // Leitura do ArrayList já serializado, caso inexistente, cria-se um novo ArrayList.
+        ArrayList<Financiamento> financiamentos = util.serializarDesserializar.lerSerializado(caminhoArquivo);
+
+        new PainelPrincipal(financiamentos, 0, caminhoArquivo);
     }
 }

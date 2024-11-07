@@ -34,9 +34,11 @@ public class WindowGeral extends JFrame {
     ArrayList<Financiamento> financiamentos;
     ArrayList<Integer> codigos = new ArrayList<>();
     Integer[] codigosArray;
+    String caminhoArquivo;
 
+    public WindowGeral(ArrayList<Financiamento> financiamentos, int botoes, String caminhoArquivo) {
+        this.caminhoArquivo = caminhoArquivo;
 
-    public WindowGeral(ArrayList<Financiamento> financiamentos, int botoes) {
         // JFrame janela de funções específicas.
         setTitle("Financiamentos");
         setSize(300, 500);
@@ -139,10 +141,10 @@ public class WindowGeral extends JFrame {
         dispose();
 
         try {
-            new PainelPrincipal(financiamentos, codigos.getLast() + 1);
+            new PainelPrincipal(financiamentos, codigos.getLast() + 1, caminhoArquivo);
 
         } catch (NoSuchElementException e) {
-            new PainelPrincipal(financiamentos, 0);
+            new PainelPrincipal(financiamentos, 0, caminhoArquivo);
         }
     }
 

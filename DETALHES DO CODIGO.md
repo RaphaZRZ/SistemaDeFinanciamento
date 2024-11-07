@@ -107,64 +107,64 @@ adicionado.
 
 **12-34:** Instanciação das variáveis responsáveis pela interface num contexto global.
 
-**42-44:** Método construtor, recebe como parâmetro o Array de financiamentos e o valor do código do financiamento
+**43-46:** Método construtor, recebe como parâmetro o Array de financiamentos e o valor do código do financiamento
 a ser cadastrado.
 
-**47-52:** JFrame - Janela principal que contém todos as funcionalidades do programa.
+**49-54:** JFrame - Janela principal que contém todos as funcionalidades do programa.
 
-**56-76:** JPanel - Separação de seções do programa, blocos com cores diferentes que contém diferentes informações. 
+**58-78:** JPanel - Separação de seções do programa, blocos com cores diferentes que contém diferentes informações. 
 O painel azul no topo destaca o título do programa, o painel cinza claro à esquerda contém os campos para inserir 
 os dados de um novo financiamento, já o painel cinza escuro à direita é dedicado aos botões de ação do usuário, 
 como `Salvar`, `Listar`, `Editar` e `Excluir`.
 
-**80-107:** JRadioButton - Botões de seleção que permitem ao usuário escolher o tipo de imóvel a ser financiado. 
+**82-109:** JRadioButton - Botões de seleção que permitem ao usuário escolher o tipo de imóvel a ser financiado. 
 Há três opções: Apartamento, Casa e Terreno. Cada botão dispara um evento através do método a `addActionListener`, 
 que chama a função `escolherTipoDoImovel` para definir o tipo de financiamento selecionado. 
 O grupo de botões de rádio é gerenciado por um `ButtonGroup` para garantir que apenas uma opção seja selecionada 
 por vez.
 
-**111-140:** JLabel obrigatória - Textos que aparecerão na tela independente de quais ações o usuário tomar. Contém o 
+**113-142:** JLabel obrigatória - Textos que aparecerão na tela independente de quais ações o usuário tomar. Contém o 
 título, os textos para informar ao usuário o que deve ser feito e quais valores devem ser informados. É possível alterar
 a dimensão, posicionamento, fonte e cor dos textos.
 
-**144-168:** JLabel específica - Textos que aparecerão na tela somente quando o usuário selecionar o 
+**146-170** JLabel específica - Textos que aparecerão na tela somente quando o usuário selecionar o 
 tipo de financiamento desejado. Contém informações para financiar um apartamento, casa ou terreno, textos para informar 
 ao usuário quais valores devem ser inseridos.
 
-**172-186:** JTextField obrigatório - Caixa de texto utilizada pelo usuário para informar os valores gerais
+**174-188:** JTextField obrigatório - Caixa de texto utilizada pelo usuário para informar os valores gerais
 do financiamento.
 
-**190-210:** JTextField específica - Caixa de texto utilizada pelo usuário para informar os valores específicos 
+**192-212:** JTextField específica - Caixa de texto utilizada pelo usuário para informar os valores específicos 
 do financiamento.
 
-**214-217:** JComboBox - Seleciona o tipo do terreno, entre `Residencial` e `Comercial`.
+**216-219:** JComboBox - Seleciona o tipo do terreno, entre `Residencial` e `Comercial`.
 É possível alterar a dimensão, posicionamento e os itens contidos na caixa.
 
-**221-257:** JButton - Botões para Salvar/Listar/Editar/Excluir financiamentos, cada botão é configurado com seu próprio
+**223-259:** JButton - Botões para Salvar/Listar/Editar/Excluir financiamentos, cada botão é configurado com seu próprio
 método de ação. 
 Os métodos são (`criarFinanciamentos`/`listarFinanciamentos`/`editarFinanciamentos`/`excluirFinanciamentos`).
 É possível alterar a dimensão, posicionamento, cor, método a ser chamado, texto e fonte do botão.
 
-**260-274:** Torna todos os componentes visíveis pelo método `setVisible(true)`, em seguida oculta apenas as informações
+**262-276:** Torna todos os componentes visíveis pelo método `setVisible(true)`, em seguida oculta apenas as informações
 específicas até que as mesmas sejam solicitadas pelo usuário.
 
 
 ### Métodos
-**279-308:** escolherTipoDoImovel(ActionEvent e) - Controla a visibilidade dos `JTextField` e `JLabel`específicos
+**281-310:** escolherTipoDoImovel(ActionEvent e) - Controla a visibilidade dos `JTextField` e `JLabel`específicos
 conforme o tipo de financiamento escolhido pelo usuário.
 
-**312-364** public void criarFinanciamentos(ActionEvent actionEvent) - Valida todas as informações informadas pelo 
+**314-367** public void criarFinanciamentos(ActionEvent actionEvent) - Valida todas as informações informadas pelo 
 usuário utilizando os métodos da classe `ValidarValores` e, se tudo estiver correto, instancia um novo financiamento e
 o adiciona no array de financiamentos cadastrados.
 
-**368:372** private void listarFinanciamentos(ActionEvent actionEvent) - Abre uma nova janela para listar os 
+**371:375** private void listarFinanciamentos(ActionEvent actionEvent) - Abre uma nova janela para listar os 
 financiamentos, está é instanciada com o argumento de apenas 1 botão(voltar).
 
-**376:380** private void listarFinanciamentos(ActionEvent actionEvent) - Abre uma nova janela para editar os 
+**379:383** private void listarFinanciamentos(ActionEvent actionEvent) - Abre uma nova janela para editar os 
 financiamentos utilizando os métodos da classe `ValidarValores`, está é instanciada com o argumento 
 de 2 botões(voltar e atualizar). Se os valores estiverem corretos, atualiza os valores do financiamento.
 
-**384:387** private void listarFinanciamentos(ActionEvent actionEvent) - Abre uma nova janela para excluir os 
+**387:390** private void listarFinanciamentos(ActionEvent actionEvent) - Abre uma nova janela para excluir os 
 financiamentos, está é instanciada sem argumentos, porém contém 2 botões(voltar e excluir).
 
 
@@ -173,38 +173,38 @@ financiamentos, está é instanciada sem argumentos, porém contém 2 botões(vo
 Classe que define o tamanho da janela aberta quando as funções listar/editar/excluir são chamadas.
 Tem como parâmetro a quantidade de botões, geralmente entre 1 e 2.
 
-**17-36:** Instanciação das variáveis responsáveis pela interface num contexto global.
+**17-37:** Instanciação das variáveis responsáveis pela interface num contexto global.
 
-**41-45:** JFrame - Janela base utilizada por todas as classes herdeiras da mesma.
+**43-47:** JFrame - Janela base utilizada por todas as classes herdeiras da mesma.
 
-**49-53:** JPanel - Painel que contém a área em que serão apresentados os valores de cada financiamento.
+**51-55:** JPanel - Painel que contém a área em que serão apresentados os valores de cada financiamento.
 
-**57-60:** JPanel - Painel que contém os botões baseado em qual função o usuário escolheu.
+**59-62:** JPanel - Painel que contém os botões baseado em qual função o usuário escolheu.
 
-**64-67:** Loop que obtém o código de cada financiamento e os guarda num Array.
+**66-69:** Loop que obtém o código de cada financiamento e os guarda num Array.
 
-**71-73:** JComboBox - Permite a escolha de qual financimaneto será listado e/ou alterado por meio do código.
+**73-75:** JComboBox - Permite a escolha de qual financimaneto será listado e/ou alterado por meio do código.
 
-**77-96:** JLabel - Informações gerais do financiamento.
+**79-98:** JLabel - Informações gerais do financiamento.
 
-**100-124:** JLabel - Informações específicas do financiamento.
+**102-126:** JLabel - Informações específicas do financiamento.
 
-**128-133:** JButton - Voltar para o painel principal.
+**130-135:** JButton - Voltar para o painel principal.
 
 
 ### Métodos
-**138-147:** private void voltarParaMenuPrincipal(ActionEvent actionEvent) - Volta para o painel principal após clicar,
+**140-149:** private void voltarParaMenuPrincipal(ActionEvent actionEvent) - Volta para o painel principal após clicar,
 no botão voltar. Instancia o painel com o próximo código da lista de financiamentos para que os dados do próximo 
 financiamento a serem salvos seja colocado numa nova posição. 
 Caso a lista esteja vazia, instancia o painel com o código 0.
 
-**149-155:** protected void ocultarJLabelsEspecificas() - Oculta as JLabels não relacionadas ao tipo de financiamento
+**151-157:** protected void ocultarJLabelsEspecificas() - Oculta as JLabels não relacionadas ao tipo de financiamento
 escolhido por meio do método `setVisible(boolean visibility)`.
 
 
 
 ## WindowListar
-**9-12:** Método construtor, recebe como parâmetro o Array de financiamentos e a quantidade de colunas(determina a 
+**10-12:** Método construtor, recebe como parâmetro o Array de financiamentos e a quantidade de colunas(determina a 
 quantidade de botões).
 
 **14-18:** JComboBox - Escolher o financiamento desejado para exibir as informações do mesmo.
@@ -239,7 +239,7 @@ quantidade de botões).
 específicas por meio do método `ocultarJLabelsEspecificas()`, verifica o tipo do financiamento, exibe as JLabel 
 condizentes e por fim mostra os JTextField para que os valores possam ser alterados.
 
-**162-223:** atualizarFinanciamentos(ActionEvent actionEvent) - Percorre o Array de financiamentos para encontrar o id
+**162-225:** atualizarFinanciamentos(ActionEvent actionEvent) - Percorre o Array de financiamentos para encontrar o id
 correspondente ao selecionado na JComboBox, analisa os novos valores informados e verifica se são ou não válidos.
 
 
@@ -249,5 +249,5 @@ correspondente ao selecionado na JComboBox, analisa os novos valores informados 
 
 
 ### Métodos
-**29-40:** private void excluir(ActionEvent actionEvent) - Percorre o Array de financiamentos para encontrar o id
+**29-41:** private void excluir(ActionEvent actionEvent) - Percorre o Array de financiamentos para encontrar o id
 correspondente ao selecionado na JComboBox, exclui todos os dados deste financiamento.

@@ -27,8 +27,8 @@ public class WindowEditar extends WindowGeral {
     JButton jButtonAtualizar;
 
 
-    WindowEditar(ArrayList<Financiamento> financiamentos, int colunas) {
-        super(financiamentos, colunas);
+    WindowEditar(ArrayList<Financiamento> financiamentos, int colunas, String caminhoArquivo) {
+        super(financiamentos, colunas, caminhoArquivo);
         this.financiamentos = financiamentos;
 
         jComboBoxListaDeFinanciamentos.addActionListener(this::visualizarInformacoes);
@@ -209,9 +209,11 @@ public class WindowEditar extends WindowGeral {
                         financiamento.setPrazoFinanciamentoEmAnos(prazoFinanciamento);
                         financiamento.setTaxaJurosAnual(jurosAnual);
 
-                        if (valoresAceitos)
+                        if (valoresAceitos) {
                             JOptionPane.showMessageDialog(null, "Informações atualizadas.",
                                     "Financiamento Atualizado", JOptionPane.INFORMATION_MESSAGE, rightPNG);
+                            util.serializarDesserializar.serializar(financiamentos, caminhoArquivo);
+                        }
                     }
 
                 } catch (NumberFormatException e) {

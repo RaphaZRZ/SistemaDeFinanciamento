@@ -37,11 +37,13 @@ public class PainelPrincipal extends JFrame {
     // ArrayList financiamentos e Integer codigo são utilizados para transitar os dados de cada financiamento registrado entre diferentes Classes.
     ArrayList<Financiamento> financiamentos;
     int codigo;
+    String caminhoArquivo;
 
     // Criação da interface gráfica principal, com as operações CRUD.
-    public PainelPrincipal(ArrayList<Financiamento> financiamentos, int codigo) {
+    public PainelPrincipal(ArrayList<Financiamento> financiamentos, int codigo, String caminhoArquivo) {
         this.financiamentos = financiamentos;
         this.codigo = codigo;
+        this.caminhoArquivo = caminhoArquivo;
 
         // JFrame Janela principal do programa.
         setTitle("Financiamentos");
@@ -170,15 +172,15 @@ public class PainelPrincipal extends JFrame {
 
         // JTextField Informações obrigatórias para todos os financiamentos.
         jTextFieldValorImovel = new JTextField("50000");
-        jTextFieldValorImovel.setBounds(185,222,110,20);
+        jTextFieldValorImovel.setBounds(185, 222, 110, 20);
         jTextFieldValorImovel.setFont(new Font("Arial", Font.BOLD, 15));
 
         jTextFieldPrazoEmAnos = new JTextField("8");
-        jTextFieldPrazoEmAnos.setBounds(185,272,110,20);
+        jTextFieldPrazoEmAnos.setBounds(185, 272, 110, 20);
         jTextFieldPrazoEmAnos.setFont(new Font("Arial", Font.BOLD, 15));
 
         jTextFieldJurosAnual = new JTextField("8");
-        jTextFieldJurosAnual.setBounds(185,322,110,20);
+        jTextFieldJurosAnual.setBounds(185, 322, 110, 20);
         jTextFieldJurosAnual.setFont(new Font("Arial", Font.BOLD, 15));
 
         panelInformacoesDoFinanciamento.add(jTextFieldValorImovel);
@@ -188,19 +190,19 @@ public class PainelPrincipal extends JFrame {
 
         // JTextField Informações específicas de cada imóvel a ser financiado.
         jTextFieldQuantidadeDeAndares = new JTextField();
-        jTextFieldQuantidadeDeAndares.setBounds(185,372,110,20);
+        jTextFieldQuantidadeDeAndares.setBounds(185, 372, 110, 20);
         jTextFieldQuantidadeDeAndares.setFont(new Font("Arial", Font.BOLD, 15));
 
         jTextFieldQuantidadeDeVagas = new JTextField();
-        jTextFieldQuantidadeDeVagas.setBounds(185,422,110,20);
+        jTextFieldQuantidadeDeVagas.setBounds(185, 422, 110, 20);
         jTextFieldQuantidadeDeVagas.setFont(new Font("Arial", Font.BOLD, 15));
 
         jTextFieldAreaTerreno = new JTextField();
-        jTextFieldAreaTerreno.setBounds(185,372,110,20);
+        jTextFieldAreaTerreno.setBounds(185, 372, 110, 20);
         jTextFieldAreaTerreno.setFont(new Font("Arial", Font.BOLD, 15));
 
         jTextFieldAreaConstruida = new JTextField();
-        jTextFieldAreaConstruida.setBounds(185,422,110,20);
+        jTextFieldAreaConstruida.setBounds(185, 422, 110, 20);
         jTextFieldAreaConstruida.setFont(new Font("Arial", Font.BOLD, 15));
 
 
@@ -213,7 +215,7 @@ public class PainelPrincipal extends JFrame {
         // JComboBox Tipo de zona do terreno.
         String[] zonas = {"Residencial", "Comercial"};
         jComboBoxTipoDeZona = new JComboBox<>(zonas);
-        jComboBoxTipoDeZona.setBounds(185,372,110,20);
+        jComboBoxTipoDeZona.setBounds(185, 372, 110, 20);
         panelInformacoesDoFinanciamento.add(jComboBoxTipoDeZona);
 
 
@@ -353,6 +355,7 @@ public class PainelPrincipal extends JFrame {
                 if (valoresAceitos) {
                     JOptionPane.showMessageDialog(null, "financiamento aprovado.",
                             "Financiamento Realizado", JOptionPane.INFORMATION_MESSAGE, rightPNG);
+                    util.serializarDesserializar.serializar(financiamentos, caminhoArquivo);
                     codigo += 1;
                 }
             }
@@ -368,7 +371,7 @@ public class PainelPrincipal extends JFrame {
     private void listarFinanciamentos(ActionEvent actionEvent) {
         dispose();
         // O número de colunas é necessário para fazer o encaixe do segundo botão na função excluir.
-        new WindowListar(financiamentos, 1);
+        new WindowListar(financiamentos, 1, caminhoArquivo);
     }
 
 
@@ -376,13 +379,13 @@ public class PainelPrincipal extends JFrame {
     private void editarFinanciamentos(ActionEvent actionEvent) {
         dispose();
         // O número de colunas é necessário para fazer o encaixe do segundo botão na função excluir.
-        new WindowEditar(financiamentos, 2);
+        new WindowEditar(financiamentos, 2, caminhoArquivo);
     }
 
 
     // JButton excluir.
     private void excluirFinanciamentos(ActionEvent actionEvent) {
         dispose();
-        new WindowExcluir(financiamentos);
+        new WindowExcluir(financiamentos, caminhoArquivo);
     }
 }
