@@ -2,7 +2,7 @@
 > Status: CONCLUÍDO ✅
 
 ## Sobre o projeto:
-Sistema que valida várias regras de negócio para criar um financiamento correto, contendo as operações CRUD e persistência de dados num file .json.
+Sistema de Financiamento com Interface Gráfica, desenvolvido em Java, focado no aperfeiçoamento de conceitos de orientação a objetos, como abstração, polimorfismo, herança, encapsulamento e estruturação de classes e métodos. Utilizando a biblioteca java.swing, o sistema oferece uma interface amigável com suporte completo para CRUD. A persistência de dados é gerenciada por meio da serialização de objetos, garantindo que as informações estejam sempre disponíveis e seguras.
 
 ## Sobre o código:
 - `\src\main` Contém o ArrayList de financiamentos, também inicia a janela criada pelo java.swing.
